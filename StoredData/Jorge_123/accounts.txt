@@ -15,16 +15,16 @@ deposit dollar 200.0 Sun May 10 12:39:16 EDT 2020
 deposit dollar 2442.0 Sun May 10 12:39:16 EDT 2020
 loan start
 dollar 124.0 joe Mon May 11 12:39:16 EDT 2020
-dollar 78.64 dollar 4.64
-dollar-0.75 dollar-0.76 dollar-0.77 dollar-0.78 dollar-0.79 dollar-0.79 
+dollar 79.44 dollar 5.44
+dollar-0.75 dollar-0.76 dollar-0.77 dollar-0.78 dollar-0.79 dollar-0.79 dollar-0.8 
 dollar-50.0 
 dollar 12441.0 bike Mon May 11 12:39:16 EDT 2020
-dollar 13168.94 dollar 777.94
-dollar-126.39 dollar-127.68 dollar-128.98 dollar-130.3 dollar-131.62 dollar-132.97 
+dollar 13303.26 dollar 912.26
+dollar-126.39 dollar-127.68 dollar-128.98 dollar-130.3 dollar-131.62 dollar-132.97 dollar-134.32 
 dollar-50.0 
 dollar 44023.0 house Sun May 17 12:39:16 EDT 2020
-dollar 43973.0 dollar 0.0
-interest skip
+dollar 44421.52 dollar 448.52
+dollar-448.52 
 dollar-50.0 
 loan end
 END TRANSACTIONS

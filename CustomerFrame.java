@@ -15,6 +15,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
     private JButton deposit = new JButton("Make a Deposit"); 
     private JButton withdraw = new JButton("Make a Withdrawl"); 
     private JButton requestLoan = new JButton("Request a Loan"); 
+    private JButton viewLoans = new JButton("View Loans"); 
     private JButton tradeStocks = new JButton("Trade Stocks"); 
     private JButton logOut = new JButton("Log Out"); 
 
@@ -36,6 +37,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
         panel3.add(withdraw);
         panel3.add(requestLoan);
         panel3.add(tradeStocks);
+        panel3.add(viewLoans); 
         panel3.add(logOut);
         panel.add(panel1);
         panel.add(panel3);
@@ -46,6 +48,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
         withdraw.addActionListener(this);
         requestLoan.addActionListener(this);
         tradeStocks.addActionListener(this);
+        viewLoans.addActionListener(this);
         logOut.addActionListener(this);
 
         add(panel, BorderLayout.CENTER);
@@ -81,6 +84,8 @@ public class CustomerFrame extends JFrame implements ActionListener {
             }
         } else if (ae.getSource() == tradeStocks) {
             new StockMarketFrame(null,bank, customer);
+        } else if (ae.getSource() == viewLoans) {
+            CustomerLoansFrame frame = new CustomerLoansFrame(bank, customer); 
         } else if (ae.getSource() == logOut) {
             JOptionPane.showMessageDialog(rootPane, "You have logged out.");
             login.setTitle("Bank Login" + " - " + Bank.date);
