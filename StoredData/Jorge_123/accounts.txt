@@ -46,3 +46,9 @@ checking dollar
 dollar -50.0
 START TRANSACTIONS
 END TRANSACTIONS
+ACCOUNT 5
+securities dollar
+dollar 99950.0
+START TRANSACTIONS
+deposit dollar 100000.0 Sun May 17 12:39:16 EDT 2020
+END TRANSACTIONS
