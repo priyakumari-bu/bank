@@ -1,0 +1,6 @@
+END OF DATE REPORT OF ALL TRANSACTIONS FOR: Sat May 16 12:39:16 EDT 2020
+Number of Customers: 1
+
+Customer: Jorge
+no transactions for the current date
+

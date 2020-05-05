@@ -1,0 +1,48 @@
+ACCOUNT 0
+checking dollar
+dollar 123238.0
+START TRANSACTIONS
+deposit dollar 100.0 Sun May 10 12:39:16 EDT 2020
+deposit dollar 124421.0 Sun May 10 12:39:16 EDT 2020
+withdrawl dollar 1234.0 Sun May 10 12:39:16 EDT 2020
+deposit dollar 1.0 Mon May 11 12:39:16 EDT 2020
+END TRANSACTIONS
+ACCOUNT 1
+loan dollar
+dollar 57220.58
+START TRANSACTIONS
+deposit dollar 200.0 Sun May 10 12:39:16 EDT 2020
+deposit dollar 2442.0 Sun May 10 12:39:16 EDT 2020
+loan start
+dollar 124.0 joe Mon May 11 12:39:16 EDT 2020
+dollar 78.64 dollar 4.64
+dollar-0.75 dollar-0.76 dollar-0.77 dollar-0.78 dollar-0.79 dollar-0.79 
+dollar-50.0 
+dollar 12441.0 bike Mon May 11 12:39:16 EDT 2020
+dollar 13168.94 dollar 777.94
+dollar-126.39 dollar-127.68 dollar-128.98 dollar-130.3 dollar-131.62 dollar-132.97 
+dollar-50.0 
+dollar 44023.0 house Sun May 17 12:39:16 EDT 2020
+dollar 43973.0 dollar 0.0
+interest skip
+dollar-50.0 
+loan end
+END TRANSACTIONS
+ACCOUNT 2
+checking dollar
+dollar -50.0
+START TRANSACTIONS
+END TRANSACTIONS
+ACCOUNT 3
+loan dollar
+dollar 4192.0
+START TRANSACTIONS
+deposit dollar 4242.0 Sun May 10 12:39:16 EDT 2020
+loan start
+loan end
+END TRANSACTIONS
+ACCOUNT 4
+checking dollar
+dollar -50.0
+START TRANSACTIONS
+END TRANSACTIONS
