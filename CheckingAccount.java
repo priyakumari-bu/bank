@@ -1,4 +1,4 @@
-
+// Class that represents a checking account 
 public class CheckingAccount extends Account{
     // the fee charged to withdraw money from the account
     private double withdrawalFee;
