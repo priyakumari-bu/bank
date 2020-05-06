@@ -144,7 +144,12 @@ public class ManagerFrame extends JFrame implements ActionListener {
         }
         PersistanceHandler p = new PersistanceHandler();
         p.persistReport(str.toString(), MODE);
-        JOptionPane.showMessageDialog(rootPane, str.toString());
+        JTextArea textArea = new JTextArea(20,45);
+        textArea.setText(str.toString());
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JOptionPane.showMessageDialog(rootPane, scrollPane);  
     }
 
 }

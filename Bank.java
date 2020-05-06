@@ -4,7 +4,7 @@ public class Bank {
 
     private static Bank single_instance = null; 
     private static StockMarket stockMarket = new StockMarket(); 
-    static private Manager manager = new Manager("John Doe", "123456");
+    static private Manager manager = new Manager("Mister Manager", "123456");
     static private ArrayList<Customer> customers = new ArrayList();
     static Date date = new Date();
 

@@ -17,7 +17,8 @@ public class CustomerFrame extends JFrame implements ActionListener {
     private JButton transfer = new JButton("Transfer"); 
     private JButton requestLoan = new JButton("Request a Loan"); 
     private JButton viewLoans = new JButton("View/Pay Loans"); 
-    private JButton tradeStocks = new JButton("Trade Stocks"); 
+    private JButton tradeStocks = new JButton("Trade Stocks");
+    private JButton changeCurrency = new JButton("Change Accounts Currency");  
     private JButton logOut = new JButton("Log Out");
     private JButton viewAll = new JButton("View All Transactions");  
 
@@ -42,6 +43,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
         panel3.add(tradeStocks);
         panel3.add(viewLoans); 
         panel3.add(viewAll);
+        panel3.add(changeCurrency);
         panel3.add(logOut);
         panel.add(panel1);
         panel.add(panel3);
@@ -53,13 +55,14 @@ public class CustomerFrame extends JFrame implements ActionListener {
         requestLoan.addActionListener(this);
         tradeStocks.addActionListener(this);
         transfer.addActionListener(this);
+        changeCurrency.addActionListener(this);
         viewLoans.addActionListener(this);
         viewAll.addActionListener(this);
         logOut.addActionListener(this);
 
         add(panel, BorderLayout.CENTER);
         setTitle("Customer Login" + " - " + Bank.date);
-        setSize(450, 450);
+        setSize(800, 400);
         setVisible(true);
     }
 
@@ -72,12 +75,13 @@ public class CustomerFrame extends JFrame implements ActionListener {
             new TransferFrame(this, customer);
         } else if (ae.getSource() == viewAll) {
             JTextArea textArea = new JTextArea(20,45);
-            String disp = "Viewing detailed report for " + customer.getUsername() + "(" + customer.getID().toString() + "):\n\n\n";
+            String disp = "Viewing detailed report for " + customer.getUsername() + " (" + customer.getID().toString() + "):\n\n";
             for (Account account : customer.getAccounts()) {
                 disp += account.getAccountType() + " account (" + account.getID() + ") : " + account.getAmount().toString() + "\n\n";
                 for (Transaction transaction : account.getTransactions()) {
                     disp += transaction.toString() + "\n";
                 }
+                disp += "\n";
                 if (account instanceof LoanAccount) {
                     for (Loan loan : ((LoanAccount) account).getLoans()) {
                         disp += loan.toString() + "\n\n";
@@ -101,7 +105,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
                         disp += ".\n";
                     }
                 }
-                disp += "\n\n";
+                disp += "\n";
             }
             textArea.setText(disp);
             textArea.setEditable(false);
@@ -133,7 +137,14 @@ public class CustomerFrame extends JFrame implements ActionListener {
         } else if (ae.getSource() == tradeStocks) {
             this.dispose();
             new StockMarketFrame(this,bank, customer);
-        } else if (ae.getSource() == viewLoans) {
+        } else if (ae.getSource() == changeCurrency) {
+            String currency = JOptionPane.showInputDialog(rootPane, "type in currency: ");
+            if (currency != null) {
+            for (Account account : customer.getAccounts()) {
+                account.exchangeTo(currency);
+            }
+        }
+        }else if (ae.getSource() == viewLoans) {
             this.dispose();
             CustomerLoansFrame frame = new CustomerLoansFrame(this,bank, customer);
         } else if (ae.getSource() == logOut) {

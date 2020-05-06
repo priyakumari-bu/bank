@@ -19,7 +19,7 @@ public class Login extends JFrame implements ActionListener {
     private JPasswordField passwordTextField = new JPasswordField();
     private JButton submit = new JButton("Login");
 
-    private JButton registerCustomer = new JButton("No Account");
+    private JButton registerCustomer = new JButton("Create Account");
 
     public Login(Bank bank) {
         this.bank = bank;

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
+import javax.swing.table.DefaultTableModel;
 
 public class CustomerLoansFrame extends JFrame implements ActionListener {
     private Bank bank; 

@@ -47,7 +47,7 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
 
         add(wholePanel, BorderLayout.CENTER);
         setTitle("Bank - Account"  + " - " + Bank.date);
-        setSize(FORM_WIDTH, FORM_Height);
+        setSize(750, FORM_Height);
         setVisible(true);
 
         welcomeLabel.setText(customer.getUsername() + " ,here are your accounts.");
