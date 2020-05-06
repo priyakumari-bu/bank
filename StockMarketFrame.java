@@ -77,31 +77,41 @@ public class StockMarketFrame extends JFrame {
                 String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
 
-                if(!amount.equals("")){
-                    if(customer.getAllAccountsByType("securities").size()<=0){
-                        JOptionPane.showMessageDialog(null, "Please create an account first!");
-                    }else {
-                        SecuritiesAccount securitiesAccount = (SecuritiesAccount) customer.getAccounts().get(customer.findAccount(accountNum));
+                ArrayList<Account> savingsAccounts = customer.getAllAccountsByType("savings");
+                Double total = 0.0;
+                for (Account account :savingsAccounts){
+                    total = total+account.getAmount().getValue();
+                }
+                if(total<2500){
+                    JOptionPane.showMessageDialog(null, "Your savings account amount must be greater than 2500!");
+                }else {
+                    if(!amount.equals("")){
+                        if(customer.getAllAccountsByType("securities").size()<=0){
+                            JOptionPane.showMessageDialog(null, "Please create an account first!");
+                        }else {
+                            SecuritiesAccount securitiesAccount = (SecuritiesAccount) customer.getAccounts().get(customer.findAccount(accountNum));
 
-                        ArrayList<Stock> stocks = bank.getStockMarket().getStocks();
+                            ArrayList<Stock> stocks = bank.getStockMarket().getStocks();
 
-                        Stock buyStock = null;
-                        for(Stock stock:stocks){
-                            if(stock.getTicker().equals(stock_ticker)){
-                                buyStock = new Stock(stock.getName(), stock.getTicker(),stock.getCurrentPrice() , Integer.valueOf(amount));
+                            Stock buyStock = null;
+                            for(Stock stock:stocks){
+                                if(stock.getTicker().equals(stock_ticker)){
+                                    buyStock = new Stock(stock.getName(), stock.getTicker(),stock.getCurrentPrice() , Integer.valueOf(amount));
+                                }
+                            }
+                            if((securitiesAccount.getAmount().getValue() <= buyStock.getCurrentPrice().getValue()*Integer.parseInt(amount)) ){
+                                JOptionPane.showMessageDialog(null, "This account does not have enough money for this transaction!");
+                            }else {
+
+                                securitiesAccount.buy(buyStock,Integer.parseInt(amount));
+                                refreshTables2();
                             }
                         }
-                        if((securitiesAccount.getAmount().getValue() <= buyStock.getCurrentPrice().getValue()*Integer.parseInt(amount)) ){
-                            JOptionPane.showMessageDialog(null, "This account does not have enough money for this transaction!");
-                        }else {
-
-                            securitiesAccount.buy(buyStock,Integer.parseInt(amount));
-                            refreshTables2();
-                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please fill in the purchase quantity!");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please fill in the purchase quantity!");
                 }
+
             }
         });
 
@@ -113,29 +123,39 @@ public class StockMarketFrame extends JFrame {
                 String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
 
-                if(customer.getAllAccountsByType("securities").size()<=0){
-                    JOptionPane.showMessageDialog(null, "Please create an account first.");
+                ArrayList<Account> savingsAccounts = customer.getAllAccountsByType("savings");
+                Double total = 0.0;
+                for (Account account :savingsAccounts){
+                    total = total+account.getAmount().getValue();
+                }
+                if(total<2500){
+                    JOptionPane.showMessageDialog(null, "Your savings account amount must be greater than 2500!");
                 }else {
-                    SecuritiesAccount securitiesAccount = (SecuritiesAccount) customer.getAccounts().get(customer.findAccount(accountNum));
 
-                    ArrayList<Stock> stocks = bank.getStockMarket().getStocks();
+                    if (customer.getAllAccountsByType("securities").size() <= 0) {
+                        JOptionPane.showMessageDialog(null, "Please create an account first.");
+                    } else {
+                        SecuritiesAccount securitiesAccount = (SecuritiesAccount) customer.getAccounts().get(customer.findAccount(accountNum));
 
-                    Stock sellStock =null;
+                        ArrayList<Stock> stocks = bank.getStockMarket().getStocks();
 
-                    ArrayList<Stock> myStock = securitiesAccount.getStocks();
-                    for(Stock stock:myStock){
-                        if(stock.getTicker().equals(stock_ticker)){
-                            sellStock = new Stock(stock.getName(), stock.getTicker(),stock.getCurrentPrice() , stock.getVolume());
+                        Stock sellStock = null;
+
+                        ArrayList<Stock> myStock = securitiesAccount.getStocks();
+                        for (Stock stock : myStock) {
+                            if (stock.getTicker().equals(stock_ticker)) {
+                                sellStock = new Stock(stock.getName(), stock.getTicker(), stock.getCurrentPrice(), stock.getVolume());
+                            }
                         }
-                    }
 
-                    if(null == sellStock){
-                        JOptionPane.showMessageDialog(null, "This account does not own this stock.");
-                    } else if(sellStock.getVolume()<Integer.valueOf(amount)){
-                        JOptionPane.showMessageDialog(null, "This stock is not enough.");
-                    } else  {
-                        securitiesAccount.sell(sellStock,Integer.parseInt(amount));
-                        refreshTables2();
+                        if (null == sellStock) {
+                            JOptionPane.showMessageDialog(null, "This account does not own this stock.");
+                        } else if (sellStock.getVolume() < Integer.valueOf(amount)) {
+                            JOptionPane.showMessageDialog(null, "This stock is not enough.");
+                        } else {
+                            securitiesAccount.sell(sellStock, Integer.parseInt(amount));
+                            refreshTables2();
+                        }
                     }
                 }
             }
