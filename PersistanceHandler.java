@@ -1,8 +1,9 @@
 import java.util.*;
 import java.io.*;
-
+// Class used to add persistance to the program using file IO
 public class PersistanceHandler {
 
+    // method that saves the state of the bank 
     public void saveState() {
         File index = new File("StoredData/");
         for (File file : index.listFiles()) {
@@ -30,6 +31,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method that adds persistance to the stock market 
     private void persistStockMarket(ArrayList<Stock> stocks) {
         String path = "StoredData/StockData/stocks.txt";
         try {
@@ -49,6 +51,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method that adds persistance for a customer's information 
     private void persistCustomer(Customer customer) {
         String path = "StoredData/" + customer.getUsername() + "_" + customer.getPassword();
         File file = new File(path);
@@ -122,6 +125,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method that retrieves the state of the bank
     public void loadState() {
         loadDate();
         File[] files = new File("StoredData/").listFiles();
@@ -146,6 +150,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method that loads all the previously created stocks 
     private ArrayList<Stock> loadStocks(File file) {
         ArrayList<Stock> stocks = new ArrayList<Stock>();
         try {
@@ -167,6 +172,7 @@ public class PersistanceHandler {
         return stocks;
     }
 
+    //method  that parses through customer accounts to retrieve account information 
     private ArrayList<Account> parseAccounts(File file, Customer customer) {
         ArrayList<Account> new_accounts = new ArrayList<Account>();
         try {
@@ -233,6 +239,7 @@ public class PersistanceHandler {
         return new_accounts;
     }
 
+    // method to parse through the stocks 
     private void parseStocks(Customer customer, Account account, BufferedReader reader) {
         try {
             String data = reader.readLine();
@@ -278,6 +285,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method to parse through the loans 
     private ArrayList<Loan> parseLoans(Customer customer, Account account, BufferedReader reader) {
         ArrayList<Loan> loans = new ArrayList<Loan>();
         try {
@@ -342,6 +350,7 @@ public class PersistanceHandler {
         return currentValue;
     }
 
+    // method to add persistance to a report, all stored in the folder StoredData
     public void persistReport(String reportString, int mode) {
         String path;
         if (mode == 3) {
@@ -359,6 +368,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method to save the current date 
     public void saveDate() {
         Date date = Bank.date;
         String path = "StoredData/date.txt";
@@ -372,6 +382,7 @@ public class PersistanceHandler {
         }
     }
 
+    // method to retrieve the date 
     public void loadDate() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("StoredData/date.txt"));
