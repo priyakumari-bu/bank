@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+// Class used to produce frame where Manager can add new stocks to the StockMarket
 public class AddStocksFrame extends JFrame implements ActionListener {
     private Bank bank; 
     private JPanel panel = new JPanel(new GridLayout(5, 1)); 
