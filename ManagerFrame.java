@@ -62,6 +62,7 @@ public class ManagerFrame extends JFrame implements ActionListener {
             login.setVisible(true);
         } else if (ae.getSource() == advanceDate) {
             ArrayList<Deposit> interestPaid = new ArrayList<Deposit>();
+            ArrayList<Currency> loans = new ArrayList<Currency>();
             for (Customer customer : bank.getCustomers()) {
                 for (Account account : customer.getAccounts()) {
                     if (account instanceof SavingsAccount) {
@@ -73,19 +74,30 @@ public class ManagerFrame extends JFrame implements ActionListener {
                         }
                     } else if (account instanceof LoanAccount) {
                         for (Loan loan : ((LoanAccount) account).getLoans()) {
-                            System.out.println(loan.accumulateInterest());
+                            loans.add(loan.accumulateInterest());
                         }
                     }
                 }
             }
             if (interestPaid.size() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "No interest was paid today! Wealthy!");
+                JOptionPane.showMessageDialog(rootPane, "No interest was paid today to your customers! Wealthy!");
             } else {
                 String msg = "Sad! You had to pay interest to your customers!\n\n";
                 for (Deposit deposit : interestPaid) {
                     msg += deposit.getUser().getUsername() + ": Savings Account (" + deposit.getAccount().getID().toString() + ") received " + deposit.getValue().toString() + " (" + deposit.getAccount().getAmount().toString() + ").\n";
                 }
                 JOptionPane.showMessageDialog(rootPane, msg);
+            }
+            if (loans.size() == 0){
+                JOptionPane.showMessageDialog(rootPane, "You did not receive any interest from customers");
+            } else {
+                String msg = "You accrued the following from different loans! Money!\n\n";
+                Double value = 0.0;
+                for (Currency loan : loans) {
+                    msg += loan.toString() + "\n";
+                    value += loan.convertTo("dollar").getValue();
+                }
+                JOptionPane.showMessageDialog(rootPane, msg + "You gained " + new Dollar(value).toString()  + " in total.");
             }
             generateBankReport(0);
             Bank.pushDate();
