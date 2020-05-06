@@ -14,10 +14,6 @@ START TRANSACTIONS
 deposit dollar 200.0 Sun May 10 12:39:16 EDT 2020
 deposit dollar 2442.0 Sun May 10 12:39:16 EDT 2020
 loan start
-dollar 124.0 joe Mon May 11 12:39:16 EDT 2020
-dollar 81.07 dollar 7.07
-dollar-0.75 dollar-0.76 dollar-0.77 dollar-0.78 dollar-0.79 dollar-0.79 dollar-0.8 dollar-0.81 dollar-0.82 
-dollar-50.0 
 dollar 12441.0 bike Mon May 11 12:39:16 EDT 2020
 dollar 13576.03 dollar 1185.03
 dollar-126.39 dollar-127.68 dollar-128.98 dollar-130.3 dollar-131.62 dollar-132.97 dollar-134.32 dollar-135.69 dollar-137.08 
