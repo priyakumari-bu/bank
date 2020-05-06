@@ -5,7 +5,8 @@ public class StockMarket implements BankComponent {
     private ArrayList<Stock> stocks; 
 
     public StockMarket() {
-        this.stocks = new ArrayList<>(); 
+        this.stocks = new ArrayList<>();
+        addDefaultStocks();
     }
 
     public ID getID() {
