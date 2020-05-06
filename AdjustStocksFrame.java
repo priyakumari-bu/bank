@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+// GUI class used to produce frame where Manager can adjust the stock price of an existing stock
 public class AdjustStocksFrame extends JFrame implements ActionListener {
     private Bank bank; 
     private JPanel panel = new JPanel(new GridLayout(3, 1)); 
