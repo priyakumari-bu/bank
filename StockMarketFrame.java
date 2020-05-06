@@ -94,15 +94,17 @@ public class StockMarketFrame extends JFrame {
                             ArrayList<Stock> stocks = bank.getStockMarket().getStocks();
 
                             Stock buyStock = null;
+                            Stock original = null;
                             for(Stock stock:stocks){
                                 if(stock.getTicker().equals(stock_ticker)){
+                                    original = stock;
                                     buyStock = new Stock(stock.getName(), stock.getTicker(),stock.getCurrentPrice() , Integer.valueOf(amount));
                                 }
                             }
-                            if((securitiesAccount.getAmount().getValue() <= buyStock.getCurrentPrice().getValue()*Integer.parseInt(amount)) ){
+                            if((securitiesAccount.getAmount().getValue() <= (buyStock.getCurrentPrice().convertTo(securitiesAccount.getAmount().getStringType())).getValue()*Integer.parseInt(amount))){
                                 JOptionPane.showMessageDialog(null, "This account does not have enough money for this transaction!");
                             }else {
-
+                                original.setVolume(original.getVolume() - Integer.valueOf(amount));
                                 securitiesAccount.buy(buyStock,Integer.parseInt(amount));
                                 refreshTables2();
                             }
@@ -164,6 +166,8 @@ public class StockMarketFrame extends JFrame {
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                PersistanceHandler p = new PersistanceHandler();
+                p.saveState();
                 closeFrame();
                 getCustomerFrame().setVisible(true);
             }
@@ -223,7 +227,6 @@ public class StockMarketFrame extends JFrame {
         String[] columns = new String[] {"name", "ticker", "privce", "volume"};
         Object[][] data = new Object[bank.getStockMarket().getStocks().size()][4];
         String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString();
-        System.out.println("---"+customer.findAccount(accountNum));
         if(customer.findAccount(accountNum)!=-1){
             SecuritiesAccount securitiesAccount = (SecuritiesAccount) customer.getAccounts().get(customer.findAccount(accountNum));
             ArrayList<Stock> myStock = securitiesAccount.getStocks();

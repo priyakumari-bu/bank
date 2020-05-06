@@ -72,7 +72,6 @@ public class CustomerInfoFrame extends JFrame implements ActionListener {
                     }
 
                     String strString = str.toString();
-
                     JTextArea accountInfo = new JTextArea(strString);
                     JOptionPane.showMessageDialog(rootPane, accountInfo);
                 }

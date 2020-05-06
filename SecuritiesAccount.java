@@ -15,7 +15,7 @@ public class SecuritiesAccount extends Account {
 
     public boolean buy(Stock stock, int numShares) {
         boolean transactionSuccessful = false;
-        if (getAmount().getValue() >= stock.getCurrentPrice().getValue()*numShares) { // if account has enough money to buy stock
+        if (getAmount().getValue() >= stock.getCurrentPrice().convertTo(getAmount().getStringType()).getValue()*numShares) { // if account has enough money to buy stock
             Currency convertedCurrency = stock.getCurrentPrice().convertTo(getCurrencyType());
             double totalAmount = getAmount().getValue() - convertedCurrency.getValue()*numShares; // deduct price of total purchase from account's balance
 

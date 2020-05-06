@@ -208,7 +208,6 @@ public class PersistanceHandler {
                 data = reader.readLine();
                 if (data.equals("START TRANSACTIONS")) {
                     data = reader.readLine();
-                    System.out.println(data);
                     while (!data.equals("END TRANSACTIONS")) {
                         if (!data.equals("loan start")) {
                             if (!data.equals("stock start")) {
@@ -337,7 +336,7 @@ public class PersistanceHandler {
                 currentValue = new Euro(Double.parseDouble(split_two));
                 break;
             case "yen":
-                currentValue = new Euro(Double.parseDouble(split_two));
+                currentValue = new Yen(Double.parseDouble(split_two));
                 break;
         }
         return currentValue;
