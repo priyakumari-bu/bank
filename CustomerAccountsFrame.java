@@ -123,15 +123,27 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
                     }
                     break;
                 case "securities":
-                    SecuritiesAccount securitiesAccount = new SecuritiesAccount("dollar");
-                    result = JOptionPane.showConfirmDialog(null,
-                            "Do you want to open a securities account?\nThis operation will charge $" + securitiesAccount.getOpeningFee().getValue() + " for service fee",
-                            "Confirm",
-                            JOptionPane.YES_NO_OPTION);
-                    if (result == 0) {//YES
-                        customer.openAccount(securitiesAccount);
-                        refreshTables(cmbValue);
+                    ArrayList<Account> savingsAccounts = customer.getAllAccountsByType("savings");
+                    Double savingAmout = 0.0;
+                    for (int i=0;i<savingsAccounts.size();i++){
+                        savingAmout = savingAmout + savingsAccounts.get(i).getAmount().getValue();
                     }
+                    if(savingsAccounts.size()<=0){
+                        JOptionPane.showMessageDialog(null, "Please create an saving account first!");
+                    }else if(savingAmout<5000){
+                        JOptionPane.showMessageDialog(null, "Saving Account amount must be greater than 5000!");
+                    }else {
+                        SecuritiesAccount securitiesAccount = new SecuritiesAccount("dollar");
+                        result = JOptionPane.showConfirmDialog(null,
+                                "Do you want to open a securities account?\nThis operation will charge $" + securitiesAccount.getOpeningFee().getValue() + " for service fee",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
+                        if (result == 0) {//YES
+                            customer.openAccount(securitiesAccount);
+                            refreshTables(cmbValue);
+                        }
+                    }
+
                     break;
                 case "loan":
                     LoanAccount loanAccount = new LoanAccount("dollar");
