@@ -14,8 +14,9 @@ public class CustomerFrame extends JFrame implements ActionListener {
     private JButton viewAccount = new JButton("View Account Details");
     private JButton deposit = new JButton("Make a Deposit"); 
     private JButton withdraw = new JButton("Make a Withdrawl"); 
+    private JButton transfer = new JButton("Transfer"); 
     private JButton requestLoan = new JButton("Request a Loan"); 
-    private JButton viewLoans = new JButton("View Loans"); 
+    private JButton viewLoans = new JButton("View/Pay Loans"); 
     private JButton tradeStocks = new JButton("Trade Stocks"); 
     private JButton logOut = new JButton("Log Out"); 
 
@@ -35,6 +36,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
         panel3.add(viewAccount);
         panel3.add(deposit);
         panel3.add(withdraw);
+        panel3.add(transfer);
         panel3.add(requestLoan);
         panel3.add(tradeStocks);
         panel3.add(viewLoans); 
@@ -48,6 +50,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
         withdraw.addActionListener(this);
         requestLoan.addActionListener(this);
         tradeStocks.addActionListener(this);
+        transfer.addActionListener(this);
         viewLoans.addActionListener(this);
         logOut.addActionListener(this);
 
@@ -59,14 +62,13 @@ public class CustomerFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == viewAccount) {
-            this.dispose();
             new CustomerAccountsFrame(this,customer);
+        } else if (ae.getSource() == transfer) {
+            new TransferFrame(this, customer);
         } else if (ae.getSource() == deposit) {
-            this.dispose();
             new DepositFrame(this,customer);
 //            JOptionPane.showMessageDialog(rootPane, "Deposit button clicked");
         } else if (ae.getSource() == withdraw) {
-            this.dispose();
             new WithdrawlFrame(this,customer);
 //            JOptionPane.showMessageDialog(rootPane, "Withdraw button clicked");
         } else if (ae.getSource() == requestLoan) {
@@ -91,8 +93,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
             login.setTitle("Bank Login" + " - " + Bank.date);
             this.dispose();
             login.setVisible(true);
-        }
-
+        } 
     }
 
 }
