@@ -1,10 +1,10 @@
 
 import java.util.*;
-
+// Class that represents a Customer of the bank 
 public class Customer extends BankUser {
 
-    ArrayList<Account> accounts = new ArrayList<Account>();
-    AccountFactory accountFactory = new AccountFactory();
+    ArrayList<Account> accounts = new ArrayList<Account>(); // keeps track of the customer's accounts
+    AccountFactory accountFactory = new AccountFactory(); // used to obtain a new account 
 
 	public Customer(String username, String password, Currency startingValue) {
         super(username, password);
@@ -110,7 +110,7 @@ public class Customer extends BankUser {
         return accounts;
     }
 
-
+	// method to get the number of checking accounts
     public int getCheckingNum(){
         ArrayList<Account> accounts = this.getAccounts();
         int count = 0;
@@ -123,7 +123,7 @@ public class Customer extends BankUser {
     }
 
 
-
+	// method to get the number of savings accounts
     public int getSavingNum() {
         ArrayList<Account> accounts = this.getAccounts();
         int count = 0;
@@ -134,7 +134,7 @@ public class Customer extends BankUser {
         }
         return count;
     }
-
+	// method to get the number of securities accounts 
     public int getSecurititesNum() {
         ArrayList<Account> accounts = this.getAccounts();
         int count = 0;
@@ -145,7 +145,7 @@ public class Customer extends BankUser {
         }
         return count;
     }
-
+	// method to get the number of loan accounts 
     public int getLoanNum() {
         ArrayList<Account> accounts = this.getAccounts();
         int count = 0;
@@ -157,6 +157,7 @@ public class Customer extends BankUser {
         return count;
     }
 
+	// method to get all the accounts of a particular type 
     public ArrayList<Account> getAllAccountsByType(String type) {
         ArrayList<Account> accountsByType = new ArrayList<>();
         for(Account account :accounts){
