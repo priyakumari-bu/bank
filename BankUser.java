@@ -1,3 +1,4 @@
+// Class that represents the people using the bank (a customer or the manager) 
 public class BankUser {
 
 	private final ID id = new ID();
