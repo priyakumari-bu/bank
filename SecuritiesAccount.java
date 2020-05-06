@@ -1,4 +1,4 @@
-
+// Class that represents a securities account, held only by rich customers 
 import java.util.*;
 public class SecuritiesAccount extends Account {
 
@@ -13,6 +13,7 @@ public class SecuritiesAccount extends Account {
         setAccountType("securities");
     }
 
+    // method to buy shares of a certain stock for the account 
     public boolean buy(Stock stock, int numShares) {
         boolean transactionSuccessful = false;
         if (getAmount().getValue() >= stock.getCurrentPrice().convertTo(getAmount().getStringType()).getValue()*numShares) { // if account has enough money to buy stock
@@ -43,6 +44,7 @@ public class SecuritiesAccount extends Account {
         return transactionSuccessful;
     }
 
+    // method to sell shares of a certain stock back to the stock market 
     public boolean sell(Stock stock, int numShares) {
         boolean transactionSuccessful = false;
 
@@ -98,7 +100,7 @@ public class SecuritiesAccount extends Account {
     }
 
 
-
+    // method to find the stock of a certain company
     public int findStocksByName(String name){
         int length = stocks.size();
         for(int i=0;i<length;i++){
