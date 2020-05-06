@@ -67,11 +67,4 @@ public class Login extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Authentication failed! The user and password do not exist.");
         }
     }
-
-    public static void main(String[] args) {
-        Bank bank = Bank.getInstance();
-        PersistanceHandler p = new PersistanceHandler();
-        p.loadState();
-    }
-
 }
