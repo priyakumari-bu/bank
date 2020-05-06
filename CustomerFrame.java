@@ -81,9 +81,9 @@ public class CustomerFrame extends JFrame implements ActionListener {
             for (Account account : customer.getAccounts()) {
                 if (account instanceof LoanAccount) {
                     this.dispose();
-                    new LoanFrame(this, customer, (LoanAccount) account); 
+                    new LoanFrame(this, customer, (LoanAccount) account);
                     found = true;
-                    break;   
+                    break;
                 }
             }
             if (!found) {
@@ -94,7 +94,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
             new StockMarketFrame(this,bank, customer);
         } else if (ae.getSource() == viewLoans) {
             this.dispose();
-            CustomerLoansFrame frame = new CustomerLoansFrame(bank, customer); 
+            CustomerLoansFrame frame = new CustomerLoansFrame(this,bank, customer);
         } else if (ae.getSource() == logOut) {
             JOptionPane.showMessageDialog(rootPane, "You have logged out.");
             login.setTitle("Bank Login" + " - " + Bank.date);
