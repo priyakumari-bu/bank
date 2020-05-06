@@ -3,7 +3,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 
 import javax.swing.*;
-
+// GUI class that shows stock information from manager's perspective (allows them to also add stocks and change prices) 
 public class ManagerStockFrame extends JFrame implements ActionListener {
     private Bank bank; 
     private JPanel panel = new JPanel(new GridLayout(3, 1)); 
