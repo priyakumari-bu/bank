@@ -62,8 +62,10 @@ public class CustomerFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == viewAccount) {
+            this.dispose();
             new CustomerAccountsFrame(this,customer);
         } else if (ae.getSource() == transfer) {
+            this.dispose();
             new TransferFrame(this, customer);
         } else if (ae.getSource() == deposit) {
             this.dispose();
@@ -91,6 +93,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
             this.dispose();
             new StockMarketFrame(this,bank, customer);
         } else if (ae.getSource() == viewLoans) {
+            this.dispose();
             CustomerLoansFrame frame = new CustomerLoansFrame(bank, customer); 
         } else if (ae.getSource() == logOut) {
             JOptionPane.showMessageDialog(rootPane, "You have logged out.");
