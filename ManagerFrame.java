@@ -55,7 +55,8 @@ public class ManagerFrame extends JFrame implements ActionListener {
             this.dispose();// done!
             CustomerInfoFrame frame = new CustomerInfoFrame(this,bank);
         } else if (ae.getSource() == adjustStocks) {
-            ManagerStockFrame frame = new ManagerStockFrame(bank); 
+            this.dispose();
+            ManagerStockFrame frame = new ManagerStockFrame(this,bank);
         } else if (ae.getSource() == logOut) {
             JOptionPane.showMessageDialog(rootPane, "You have logged out.");
             this.dispose();
