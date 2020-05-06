@@ -1,5 +1,5 @@
 import java.util.*;
-
+// Abstract class that represents an Account in a bank, extended by CheckingAccount, SavingsAccount, SecuritiesAccount, and LoanAccount
 abstract class Account implements BankComponent, Exchangeable {
 
     private final ID id = new ID();
