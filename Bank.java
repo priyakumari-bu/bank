@@ -1,5 +1,5 @@
 import java.util.*;
-
+// Class that represents the Bank 
 public class Bank {
 
     private static Bank single_instance = null; 
@@ -7,11 +7,13 @@ public class Bank {
     static private Manager manager = new Manager("Mister Manager", "123456");
     static private ArrayList<Customer> customers = new ArrayList();
     static Date date = new Date();
-
+    
+    // private constructor
     private Bank() {
         new Login(this);
     }
 
+    // public getInstance method to enforce Singleton Pattern and only produce one bank
     public static Bank getInstance() {
         if (single_instance == null) {
             single_instance = new Bank();
@@ -19,6 +21,7 @@ public class Bank {
         return single_instance;
     }
 
+    // method to control time in the bank
     public static void pushDate() {
         PersistanceHandler p = new PersistanceHandler();
         p.saveState();
