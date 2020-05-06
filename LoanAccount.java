@@ -1,4 +1,5 @@
 import java.util.*;
+// Class that represents a Loan Account 
 public class LoanAccount extends Account {
     // a collection that stores all of the loans that the holder of 
     // the account has taken out
@@ -9,6 +10,7 @@ public class LoanAccount extends Account {
         setAccountType("loan"); 
     }
 
+    // method to get the total balance in the acount 
     public Currency getTotalBalance() {
         double value = 0;
         for (Loan loan : loans) {
@@ -34,6 +36,7 @@ public class LoanAccount extends Account {
         loans.add(loan);
     }
 
+    // method that accrues interest on a certain loan 
     public void accrueInterestOnLoanAtIndex(int i) {
         loans.get(i).accumulateInterest();
     }
