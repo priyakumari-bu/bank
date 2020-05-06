@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+// Customer side stock market GUI interface show stocks price and other infomatation
 public class StockMarketFrame extends JFrame {
     private Bank bank;
     private JTable table_1 = new JTable();
@@ -69,7 +70,7 @@ public class StockMarketFrame extends JFrame {
         refreshTables1();
         refreshTables2();
 
-        //buy
+        // buy stock action
         buyButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -118,7 +119,7 @@ public class StockMarketFrame extends JFrame {
             }
         });
 
-        //sell
+        //sell stock action
         sellButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
