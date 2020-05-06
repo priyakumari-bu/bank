@@ -1,3 +1,4 @@
+// A factory class used to produce different types of accounts
 public class AccountFactory {
 
     public Account createAccount(String accountType, String currencyType) {
