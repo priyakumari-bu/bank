@@ -1,4 +1,4 @@
-
+// Class that represents a stock 
 public class Stock implements BankComponent, Exchangeable, Tradeable {
     
     private final ID id = new ID();
@@ -22,6 +22,7 @@ public class Stock implements BankComponent, Exchangeable, Tradeable {
         return id;
     }
 
+    // method to exchange a stock to a different currency that exchanges all of its prices 
     public void exchangeTo(String currencyType) {
         openPrice.convertTo(currencyType); 
         highPrice.convertTo(currencyType); 
