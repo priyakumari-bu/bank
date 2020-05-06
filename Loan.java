@@ -1,6 +1,6 @@
 import java.util.Date;
 import java.util.ArrayList;
-
+// Class that represents a Loan taken by a customer in the bank 
 public class Loan implements BankComponent, Exchangeable, InterestTaxable {
 
     // data members for the Loan object
@@ -21,6 +21,7 @@ public class Loan implements BankComponent, Exchangeable, InterestTaxable {
 
     private ID id = new ID();
 
+    // constructor that creates loan based on its principal and collateral by a customer on a certain date 
     public Loan(Currency principal, Customer customer, Date date, String collateral) {
         this.principal = principal;
         if (principal instanceof Dollar) {
@@ -171,6 +172,7 @@ public class Loan implements BankComponent, Exchangeable, InterestTaxable {
         return strRepr;
     }
 
+    // method that returns a Currency object that represents the sum of payments for the loan
     public Currency computeAllPayments() {
         double value = 0.0;
         for (Currency currency : payments) {
