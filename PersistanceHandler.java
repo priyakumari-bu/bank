@@ -100,6 +100,18 @@ public class PersistanceHandler {
                     }
                     writer.write("loan end\n");
                 }
+                if (account instanceof SecuritiesAccount) {
+                    writer.write("stock start\n");
+                    SecuritiesAccount securityAccount = (SecuritiesAccount) account;
+                    for (Stock stock : securityAccount.getStocks()) {
+                        String name = stock.getName();
+                        String ticker = stock.getTicker();
+                        Currency currentPrice = stock.getCurrentPrice();
+                        int volume = stock.getVolume();
+                        writer.write(name + " " + ticker + " " + currentPrice.getStringType() + " " + Double.toString(currentPrice.getValue()) + " " + Integer.toString(volume) + "\n");
+                    }
+                    writer.write("stock end\n");
+                }
                 writer.write("END TRANSACTIONS\n");
                 writer.write("");
                 count += 1;
@@ -119,7 +131,7 @@ public class PersistanceHandler {
                     ArrayList<Stock> stocks = loadStocks(file);
                     Bank.getInstance().getStockMarket().setStocks(stocks);;
                 } else if (file.getName().equals("report.txt")) {
-                    
+
                 } else if (file.getName().equals("date.txt")) {
                     loadDate();
                 } else if (file.getName().equals("Report")) {
@@ -196,11 +208,17 @@ public class PersistanceHandler {
                 data = reader.readLine();
                 if (data.equals("START TRANSACTIONS")) {
                     data = reader.readLine();
+                    System.out.println(data);
                     while (!data.equals("END TRANSACTIONS")) {
                         if (!data.equals("loan start")) {
-                            Transaction transaction = parseTransaction(customer, account, data);
-                            account.getTransactions().add(transaction);
-                            data = reader.readLine();
+                            if (!data.equals("stock start")) {
+                                Transaction transaction = parseTransaction(customer, account, data);
+                                account.getTransactions().add(transaction);
+                                data = reader.readLine();
+                            } else {
+                                parseStocks(customer, account, reader);
+                                data = reader.readLine();
+                            }
                         } else {
                             ArrayList<Loan> loans = parseLoans(customer, account, reader);
                             data = reader.readLine();
@@ -214,6 +232,28 @@ public class PersistanceHandler {
             System.out.println("An error occurred.");
         }
         return new_accounts;
+    }
+
+    private void parseStocks(Customer customer, Account account, BufferedReader reader) {
+        try {
+            String data = reader.readLine();
+            ArrayList<Stock> stocks = new ArrayList<Stock>();
+            while (!data.equals("stock end")) {
+                String[] split = data.split(" ");
+                String name = split[0];
+                String ticker = split[1];
+                Currency currentPrice = parseCurrency(split[2], split[3]);
+                int volume = Integer.parseInt(split[4]);
+                if (volume != 0) {
+                    stocks.add(new Stock(name, ticker, currentPrice, volume));
+                }
+                data = reader.readLine();
+            }
+            ((SecuritiesAccount) account).setStocks(stocks);
+        }
+        catch (Exception e) {
+
+        }
     }
 
     private Transaction parseTransaction(Customer customer, Account account, String line) {
