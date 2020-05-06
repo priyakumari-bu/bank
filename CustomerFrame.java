@@ -66,9 +66,11 @@ public class CustomerFrame extends JFrame implements ActionListener {
         } else if (ae.getSource() == transfer) {
             new TransferFrame(this, customer);
         } else if (ae.getSource() == deposit) {
+            this.dispose();
             new DepositFrame(this,customer);
 //            JOptionPane.showMessageDialog(rootPane, "Deposit button clicked");
         } else if (ae.getSource() == withdraw) {
+            this.dispose();
             new WithdrawlFrame(this,customer);
 //            JOptionPane.showMessageDialog(rootPane, "Withdraw button clicked");
         } else if (ae.getSource() == requestLoan) {
@@ -76,6 +78,7 @@ public class CustomerFrame extends JFrame implements ActionListener {
             boolean found = false;
             for (Account account : customer.getAccounts()) {
                 if (account instanceof LoanAccount) {
+                    this.dispose();
                     new LoanFrame(this, customer, (LoanAccount) account); 
                     found = true;
                     break;   
