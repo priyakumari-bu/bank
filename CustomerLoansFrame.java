@@ -15,13 +15,18 @@ public class CustomerLoansFrame extends JFrame implements ActionListener {
     private JTable loansTable = new JTable(); 
     private JLabel titleLabel = new JLabel("Customer Loans"); 
     private JButton pay = new JButton("Pay Loan");
+    private JButton back_button = new JButton("Back");
+    private CustomerFrame customerFrame;
+
 
     public static int FORM_WIDTH = 500;
     public static int FORM_Height = 500;
 
-    public CustomerLoansFrame(Bank bank, Customer customer) {
+    public CustomerLoansFrame(CustomerFrame customerFrame,Bank bank, Customer customer) {
         this.bank = bank;
-        this.customer = customer; 
+        this.customer = customer;
+        this.customerFrame=customerFrame;
+
         String[] columns = new String[] {"ID", "PRINCIPAL","REMAINING BALANCE", "PAYMENT TOTAL","INTEREST ACCRUED", "COLLATERAL"}; 
         int numLoanAccounts = 0; 
         ArrayList<Loan> loans = new ArrayList<>(); 
@@ -43,11 +48,14 @@ public class CustomerLoansFrame extends JFrame implements ActionListener {
             i++; 
         }
         pay.setMaximumSize(new DimensionUIResource(200, 200));
+
         this.loansTable = new JTable(data, columns); 
         panel.add(titleLabel);  
         panel.add(new JScrollPane(loansTable));
         JPanel panel2 = new JPanel();
+        panel2.add(back_button);
         panel2.add(pay);
+
         panel.add(panel2);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(panel, BorderLayout.CENTER);
@@ -56,11 +64,17 @@ public class CustomerLoansFrame extends JFrame implements ActionListener {
         setVisible(true); 
         // JOptionPane.showMessageDialog(rootPane, numLoanAccounts);
         pay.addActionListener(this);
+        back_button .addActionListener(this);
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        new PayLoanFrame(this, customer);
-        setVisible(false);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == back_button) {
+            this.dispose();
+            this.customerFrame.setVisible(true);
+        }else if(e.getSource() == pay){
+            new PayLoanFrame(this, customer);
+            setVisible(false);
+        }
     }
     
 }
