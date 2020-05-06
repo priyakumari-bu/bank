@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+// GUI class that produces a frame that the manager can navigate from to perform different actions 
 public class ManagerFrame extends JFrame implements ActionListener {
     private Bank bank;
     private Login login;
