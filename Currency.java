@@ -8,7 +8,7 @@ abstract class Currency implements BankComponent {
     private double value;
     private final ID id = new ID();
 
-    // class constructor
+     // class constructor
     public Currency(double value) {
         this.value = (double) Math.round(value * 100) / 100;
     }
