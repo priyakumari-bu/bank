@@ -36,7 +36,9 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
         return this.customer;
     }
 
+    // Customer side accounts GUI interface, for add or close account and view account
     public CustomerAccountsFrame(CustomerFrame customerFrame , Customer customer ){
+         //Initialize the gui and adjust the position
         initUI();
         this.customer = customer;
         this.customerFrame = customerFrame;
@@ -54,7 +56,7 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
         account_num.setText(Integer.toString(customer.getCheckingNum()));
         refreshTables("checking");
 
-
+        // Add the item buttons on the page
         cmb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -88,7 +90,7 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
     }
 
 
-
+    // GUI action performed Controls for Customer side accounts GUI interface
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -227,7 +229,7 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
 
 
 
-
+     // Used for updating and refreshing Customer side accounts view
 
     public void refreshAccountNum(String type){
         switch (type){
