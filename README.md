@@ -1,11 +1,16 @@
 # Bank: CS591 Final Project
 
 ### Team 10: 
-### Priya Kumari: 
+### Priya Kumari: U21518661
 ### Jorge Jimenez: U34800726
 ### Ziyu Shen:
 
 ========================================================================================
+Instructions on Compilation and Execution of the Program: 
+The CompileMe.java file contains a concise main method to run our application. To compile and execute this program, use the following 2 commands - 
+
+javac CompileMe.java
+java CompileMe
 
 #### CLASS STRUCTURE TO-DO LIST
 
