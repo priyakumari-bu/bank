@@ -118,7 +118,7 @@ public class LoanFrame extends JFrame  implements ActionListener {
     }
 
 
-
+      // Initialize the gui and configure the absolute position
     public void initUI(){
         wholePanel =  new JPanel();
         wholePanel.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
