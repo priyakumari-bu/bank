@@ -85,7 +85,8 @@ public class CustomerFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(rootPane, "You do not have a Loan account yet. Please open one first.");
             }
         } else if (ae.getSource() == tradeStocks) {
-            new StockMarketFrame(null,bank, customer);
+            this.dispose();
+            new StockMarketFrame(this,bank, customer);
         } else if (ae.getSource() == viewLoans) {
             CustomerLoansFrame frame = new CustomerLoansFrame(bank, customer); 
         } else if (ae.getSource() == logOut) {
