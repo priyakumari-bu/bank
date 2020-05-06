@@ -1,0 +1,29 @@
+ACCOUNT 0
+checking dollar
+dollar -25.0
+START TRANSACTIONS
+deposit dollar 25.0 Wed May 06 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 1
+checking dollar
+dollar -50.0
+START TRANSACTIONS
+END TRANSACTIONS
+ACCOUNT 2
+savings dollar
+dollar 5435.26
+START TRANSACTIONS
+deposit dollar 5500.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 25.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 100.0 Wed May 06 12:00:00 EDT 2020
+deposit dollar 54.85 Wed May 06 12:00:00 EDT 2020
+deposit dollar 55.41 Thu May 07 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 3
+securities dollar
+dollar 950.0
+START TRANSACTIONS
+deposit dollar 1000.0 Wed May 06 12:00:00 EDT 2020
+stock start
+stock end
+END TRANSACTIONS

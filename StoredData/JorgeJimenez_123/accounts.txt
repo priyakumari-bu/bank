@@ -1,0 +1,41 @@
+ACCOUNT 0
+checking dollar
+dollar 7450.0
+START TRANSACTIONS
+deposit dollar 10000.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 2500.0 Wed May 06 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 1
+savings dollar
+dollar -50.0
+START TRANSACTIONS
+END TRANSACTIONS
+ACCOUNT 2
+savings dollar
+dollar 20363.09
+START TRANSACTIONS
+deposit dollar 20000.0 Wed May 06 12:00:00 EDT 2020
+deposit dollar 205.49 Wed May 06 12:00:00 EDT 2020
+deposit dollar 207.6 Thu May 07 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 3
+securities dollar
+dollar 8915.9
+START TRANSACTIONS
+deposit dollar 10000.0 Wed May 06 12:00:00 EDT 2020
+stock start
+Apple AP dollar 301.64 3
+Citigroup C dollar 43.06 3
+stock end
+END TRANSACTIONS
+ACCOUNT 4
+loan dollar
+dollar 25000.0
+START TRANSACTIONS
+loan start
+dollar 25000.0 Audi Wed May 06 12:00:00 EDT 2020
+dollar 22961.34 dollar 461.34
+dollar!229.5 dollar!231.84 
+dollar!2500.0 
+loan end
+END TRANSACTIONS

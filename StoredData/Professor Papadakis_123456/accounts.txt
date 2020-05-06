@@ -1,0 +1,52 @@
+ACCOUNT 0
+checking dollar
+dollar 641.84
+START TRANSACTIONS
+deposit dollar 1250.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 75.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 250.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 20.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 210.0 Wed May 06 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 1
+savings dollar
+dollar 12389.0
+START TRANSACTIONS
+deposit dollar 12000.0 Wed May 06 12:00:00 EDT 2020
+deposit dollar 123.09 Wed May 06 12:00:00 EDT 2020
+deposit dollar 124.35 Wed May 06 12:00:00 EDT 2020
+deposit dollar 125.02 Wed May 06 12:00:00 EDT 2020
+deposit dollar 126.31 Thu May 07 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 2
+savings dollar
+dollar 1442.9
+START TRANSACTIONS
+deposit dollar 1500.0 Wed May 06 12:00:00 EDT 2020
+END TRANSACTIONS
+ACCOUNT 3
+loan dollar
+dollar 6468.15
+START TRANSACTIONS
+deposit dollar 50.0 Wed May 06 12:00:00 EDT 2020
+withdrawl dollar 2000.0 Wed May 06 12:00:00 EDT 2020
+loan start
+dollar 8500.0 HondaCivic Wed May 06 12:00:00 EDT 2020
+dollar 8352.25 dollar 332.25
+dollar!81.8 dollar!82.64 dollar!83.48 dollar!84.33 
+dollar!1.0 dollar!20.0 dollar!210.0 
+loan end
+END TRANSACTIONS
+ACCOUNT 4
+securities dollar
+dollar 629.28
+START TRANSACTIONS
+deposit dollar 2000.0 Wed May 06 12:00:00 EDT 2020
+deposit dollar 1250.0 Wed May 06 12:00:00 EDT 2020
+stock start
+Apple AP dollar 301.64 6
+Citigroup C dollar 43.06 5
+Facebook FB dollar 210.79 2
+Tencent TC yen 13000.0 1
+stock end
+END TRANSACTIONS

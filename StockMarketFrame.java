@@ -74,7 +74,7 @@ public class StockMarketFrame extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 String stock_ticker = choose_stock_cmb.getSelectedItem().toString();
-                String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString();
+                String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString().split(" ")[1];
                 String amount = amount_text.getText();
 
                 ArrayList<Account> savingsAccounts = customer.getAllAccountsByType("savings");
@@ -106,6 +106,7 @@ public class StockMarketFrame extends JFrame {
                             }else {
                                 original.setVolume(original.getVolume() - Integer.valueOf(amount));
                                 securitiesAccount.buy(buyStock,Integer.parseInt(amount));
+                                refreshTables1();
                                 refreshTables2();
                             }
                         }
@@ -122,7 +123,7 @@ public class StockMarketFrame extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 String stock_ticker = choose_stock_cmb.getSelectedItem().toString();
-                String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString();
+                String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString().split(" ")[1];
                 String amount = amount_text.getText();
 
                 ArrayList<Account> savingsAccounts = customer.getAllAccountsByType("savings");
@@ -155,7 +156,13 @@ public class StockMarketFrame extends JFrame {
                         } else if (sellStock.getVolume() < Integer.valueOf(amount)) {
                             JOptionPane.showMessageDialog(null, "This stock is not enough.");
                         } else {
+                            for (Stock stock2 : stocks) {
+                                if (stock2.getTicker().equals(sellStock.getTicker())) {
+                                    stock2.setVolume(stock2.getVolume() + Integer.parseInt(amount));
+                                }
+                            }
                             securitiesAccount.sell(sellStock, Integer.parseInt(amount));
+                            refreshTables1();
                             refreshTables2();
                         }
                     }
@@ -229,9 +236,10 @@ public class StockMarketFrame extends JFrame {
     }
 
     private void initMySecuritiesAccount(Customer customer) {
+        choose_SecuritiesAccount_cmb.removeAllItems();
         if(getCustomer().getAllAccountsByType("securities").size()>0){
             for (Account account : getCustomer().getAllAccountsByType("securities")){
-                choose_SecuritiesAccount_cmb.addItem(account.getID());
+                choose_SecuritiesAccount_cmb.addItem("(" + (account.getAmount()).toString() + ") " + account.getID());
             }
         }else {
             choose_SecuritiesAccount_cmb.addItem("Please create an account first.");
@@ -261,13 +269,13 @@ public class StockMarketFrame extends JFrame {
         DefaultTableModel  model = (DefaultTableModel) table_1.getModel();
         model.setDataVector(data, columns);
         scroll_1 = new JScrollPane(new JTable(model));
-
+        initMySecuritiesAccount(customer);
     }
 
     public void refreshTables2() {
         String[] columns = new String[] {"name", "ticker", "privce", "volume"};
         Object[][] data = new Object[bank.getStockMarket().getStocks().size()][4];
-        String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString();
+        String accountNum = choose_SecuritiesAccount_cmb.getSelectedItem().toString().split(" ")[1];
         if(customer.findAccount(accountNum)!=-1){
             SecuritiesAccount securitiesAccount = (SecuritiesAccount) customer.getAccounts().get(customer.findAccount(accountNum));
             ArrayList<Stock> myStock = securitiesAccount.getStocks();
@@ -283,6 +291,7 @@ public class StockMarketFrame extends JFrame {
             DefaultTableModel  model = (DefaultTableModel) table_2.getModel();
             model.setDataVector(data, columns);
             scroll_2 = new JScrollPane(new JTable(model));
+            initMySecuritiesAccount(customer);
         }
     }
 

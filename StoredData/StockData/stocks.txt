@@ -1,5 +1,8 @@
-Facebook FB dollar 12409.0 124120412
-Amazon AMZ dollar 10.0 1998
-Tesla TSL dollar 150.0 200
-RiotGames RT dollar 78.9 100
-Tencent TC yen 13000.0 100
+Apple AP dollar 301.64 1237
+Citigroup C dollar 43.06 1541
+Google GOOGL dollar 1361.28 26
+Microsoft MSFT dollar 183.76 2500
+Facebook FB dollar 210.79 998
+FTSE UKX euro 5853.76 5
+Tencent TC yen 13000.0 99
+CocaCola CCA dollar 1200.0 1000
