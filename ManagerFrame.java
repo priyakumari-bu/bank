@@ -51,8 +51,9 @@ public class ManagerFrame extends JFrame implements ActionListener {
             CustomerRegistrationFrame frame = new CustomerRegistrationFrame(bank); 
         } else if (ae.getSource() == generateReport) { // done! 
             generateBankReport(1); 
-        }else if (ae.getSource() == checkCustomer) { // done! 
-            CustomerInfoFrame frame = new CustomerInfoFrame(bank); 
+        }else if (ae.getSource() == checkCustomer) {
+            this.dispose();// done!
+            CustomerInfoFrame frame = new CustomerInfoFrame(this,bank);
         } else if (ae.getSource() == adjustStocks) {
             ManagerStockFrame frame = new ManagerStockFrame(bank); 
         } else if (ae.getSource() == logOut) {
