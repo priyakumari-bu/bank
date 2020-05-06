@@ -80,9 +80,17 @@ public class TransferFrame extends JFrame implements ActionListener {
                 String currency = choose_currency_cmb.getSelectedItem().toString();
                 String account = choose_account_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
+                String account1 = accountToPayFrom.getSelectedItem().toString();
+
+                int index =  customer.findAccount(account1.split(":")[1]);
+                String accountType = customer.getAccounts().get(index).getAccountType();
+                System.out.println("accountType---"+accountType);
+
 
                 if(amount.equals("") || amount.equals(amount_text_placeholder)){
                     JOptionPane.showMessageDialog(rootPane, "Please enter the amount.");
+                }else if("securities".equals(accountType)  && Integer.valueOf(amount)<1000){
+                    JOptionPane.showMessageDialog(rootPane, "Amount must be greater than 1000.");
                 }else {
                     Customer c = getCustomer();
                     Account acc = c.getAccounts().get(c.findAccount(account.split(":")[1]));
