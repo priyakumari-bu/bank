@@ -12,7 +12,7 @@ The CompileMe.java file contains a concise main method to run our application. T
 javac CompileMe.java
 java CompileMe
 
-#### CLASS STRUCTURE TO-DO LIST
+#### CLASS STRUCTURE
 
 - [X] Empty Skeleton Class Files
 - [ ] Add proper class specifications (class, abstract, interface) 
