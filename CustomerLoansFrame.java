@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
 
+//Customer side loans  GUI  interface, show loans infomations
 public class CustomerLoansFrame extends JFrame implements ActionListener {
     private Bank bank; 
     private Customer customer; 
@@ -67,7 +68,9 @@ public class CustomerLoansFrame extends JFrame implements ActionListener {
         pay.addActionListener(this);
         back_button .addActionListener(this);
     }
-
+    
+    
+    //Customer side loans  GUI  interface action performed Controls
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back_button) {
             this.dispose();
