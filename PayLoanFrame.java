@@ -83,8 +83,9 @@ public class PayLoanFrame extends JFrame implements ActionListener {
                 String amount = amount_text.getText();
                 Loan loan = null;
                 for (Loan loan_d : loans) {
-                    if (loan_d.getID().toString().equals(account.split("-")[0])); {
+                    if (loan_d.getID().toString().equals(account.split(":")[0])) {
                         loan = loan_d;
+                        break;
                     }
                 }
                 switch (currency){
@@ -102,8 +103,7 @@ public class PayLoanFrame extends JFrame implements ActionListener {
                 String account2 = accountToPayFrom.getSelectedItem().toString();
 
                 Customer c = getCustomer();
-                Account acc = c.getAccounts().get(c.findAccount(account2.split("—")[1]));
-
+                Account acc = c.getAccounts().get(c.findAccount(account2.split(":")[1]));
                 Withdrawl withdrawl = null;
 
                 switch (currency){
@@ -122,7 +122,7 @@ public class PayLoanFrame extends JFrame implements ActionListener {
                 }
 
                 acc.withdraw(withdrawl);
-                JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesful!\n\n" + loan.toString() + "\n\nPAYMENT CONFIRMATION: " + withdrawl.toString());
+                JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesful!\n\n" + loan.toString() + "\n\nPAYMENT CONFIRMATION TO ACCOUNT " + acc.getID().toString() + ": " + withdrawl.toString());
                 closeFrame();
                 PersistanceHandler p = new PersistanceHandler();
                 p.saveState();
@@ -157,7 +157,7 @@ public class PayLoanFrame extends JFrame implements ActionListener {
                 for (int i = 0; i < loans.size(); i++) {
                     String accountNum = loans.get(i).getID().toString();
                     String accountType = loans.get(i).getRemainingBalance().toString();
-                    choose_account_cmb.addItem(accountNum + "—" + accountType);
+                    choose_account_cmb.addItem(accountNum + ":" + accountType);
                 }
             }
             this.loans = loans;
@@ -169,7 +169,7 @@ public class PayLoanFrame extends JFrame implements ActionListener {
                 String accountNum = customer.getAccounts().get(i).getID().toString();
                 String accountType = customer.getAccounts().get(i).getAccountType();
                 String balance = customer.getAccounts().get(i).getAmount().toString();
-                accountToPayFrom.addItem(accountType + "—" + accountNum + "—" + balance);
+                accountToPayFrom.addItem(accountType + ":" + accountNum + ":" + balance);
             }
         }
     }

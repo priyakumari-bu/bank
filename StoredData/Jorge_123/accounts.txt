@@ -1,63 +1,31 @@
 ACCOUNT 0
 checking dollar
-dollar 111938.0
+dollar 5650.0
 START TRANSACTIONS
-deposit dollar 100.0 Sun May 10 12:39:16 EDT 2020
-deposit dollar 124421.0 Sun May 10 12:39:16 EDT 2020
-withdrawl dollar 1234.0 Sun May 10 12:39:16 EDT 2020
-deposit dollar 1.0 Mon May 11 12:39:16 EDT 2020
-withdrawl dollar 1000.0 Wed May 20 12:39:16 EDT 2020
-withdrawl dollar 100.0 Wed May 20 12:39:16 EDT 2020
-withdrawl dollar 100.0 Wed May 20 12:39:16 EDT 2020
-withdrawl dollar 50.0 Wed May 20 12:39:16 EDT 2020
-withdrawl dollar 50.0 Wed May 20 12:39:16 EDT 2020
-withdrawl dollar 10000.0 Wed May 20 12:39:16 EDT 2020
+deposit dollar 250.0 Tue May 05 12:39:16 EDT 2020
+withdrawl dollar 150.0 Tue May 05 12:39:16 EDT 2020
+deposit dollar 8500.0 Tue May 05 12:39:16 EDT 2020
+withdrawl dollar 2500.0 Tue May 05 12:39:16 EDT 2020
+withdrawl dollar 100.0 Tue May 05 12:39:16 EDT 2020
+withdrawl dollar 200.0 Tue May 05 12:39:16 EDT 2020
+withdrawl dollar 100.0 Tue May 05 12:39:16 EDT 2020
 END TRANSACTIONS
 ACCOUNT 1
-loan dollar
-dollar 57220.58
+savings dollar
+dollar 1600.0
 START TRANSACTIONS
-deposit dollar 200.0 Sun May 10 12:39:16 EDT 2020
-deposit dollar 2442.0 Sun May 10 12:39:16 EDT 2020
-loan start
-dollar 12441.0 bike Mon May 11 12:39:16 EDT 2020
-dollar 13714.51 dollar 1323.51
-dollar-126.39 dollar-127.68 dollar-128.98 dollar-130.3 dollar-131.62 dollar-132.97 dollar-134.32 dollar-135.69 dollar-137.08 dollar-138.48 
-dollar-50.0 
-dollar 44023.0 house Sun May 17 12:39:16 EDT 2020
-dollar 45794.73 dollar 1821.73
-dollar-448.52 dollar-453.1 dollar-457.72 dollar-462.39 
-dollar-50.0 
-loan end
+deposit dollar 10000.0 Tue May 05 12:39:16 EDT 2020
+deposit dollar 150.0 Tue May 05 12:39:16 EDT 2020
+withdrawl dollar 8500.0 Tue May 05 12:39:16 EDT 2020
 END TRANSACTIONS
 ACCOUNT 2
-checking dollar
-dollar 150.0
-START TRANSACTIONS
-deposit dollar 100.0 Wed May 20 12:39:16 EDT 2020
-deposit dollar 50.0 Wed May 20 12:39:16 EDT 2020
-deposit dollar 50.0 Wed May 20 12:39:16 EDT 2020
-END TRANSACTIONS
-ACCOUNT 3
 loan dollar
 dollar 10000.0
 START TRANSACTIONS
-deposit dollar 4242.0 Sun May 10 12:39:16 EDT 2020
 loan start
-dollar 10050.0 House Wed May 20 12:39:16 EDT 2020
-dollar -2222.44 dollar -22.44
-dollar--22.44 
-dollar-50.0 dollar-1000.0 dollar-100.0 dollar-1000.0 dollar-100.0 dollar-10000.0 
+dollar 10000.0 Bike Tue May 05 12:39:16 EDT 2020
+dollar 7100.0 dollar 0.0
+interest skip
+dollar|1.0 dollar|1.0 dollar|1.0 dollar|100.0 
 loan end
-END TRANSACTIONS
-ACCOUNT 4
-checking dollar
-dollar -50.0
-START TRANSACTIONS
-END TRANSACTIONS
-ACCOUNT 5
-securities dollar
-dollar 99950.0
-START TRANSACTIONS
-deposit dollar 100000.0 Sun May 17 12:39:16 EDT 2020
 END TRANSACTIONS

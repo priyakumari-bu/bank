@@ -83,7 +83,7 @@ public class PersistanceHandler {
                         writer.write(" " + loan.getInterestAccumulated().getStringType() + " " + Double.toString(loan.getInterestAccumulated().getValue()) + "\n");
                         if (loan.getInterestCharges().size() != 0) {
                             for (Currency charge : loan.getInterestCharges()) {
-                                writer.write(charge.getStringType() + "-" + Double.toString(charge.getValue()) + " ");
+                                writer.write(charge.getStringType() + "|" + Double.toString(charge.getValue()) + " ");
                             }
                         } else {
                             writer.write("interest skip");
@@ -91,7 +91,7 @@ public class PersistanceHandler {
                         writer.write("\n");
                         if (loan.getPayments().size() != 0) {
                             for (Currency charge : loan.getPayments()) {
-                                writer.write(charge.getStringType() + "-" + Double.toString(charge.getValue()) + " ");
+                                writer.write(charge.getStringType() + "|" + Double.toString(charge.getValue()) + " ");
                             }
                         } else {
                             writer.write("payment skip");
@@ -260,7 +260,7 @@ public class PersistanceHandler {
                 if (!data.equals("interest skip")) {
                     String[] charges = data.split(" ");
                     for (String string : charges) {
-                        String[] interior = string.split("-");
+                        String[] interior = string.split("|");
                         interestCharges.add(parseCurrency(interior[0], interior[1]));
                     }
                 }
@@ -269,7 +269,7 @@ public class PersistanceHandler {
                 if (!data.equals("payment skip")) {
                     String[] charges = data.split(" ");
                     for (String string : charges) {
-                        String[] interior = string.split("-");
+                        String[] interior = string.split("|");
                         payments.add(parseCurrency(interior[0], interior[1]));
                     }
                 }
