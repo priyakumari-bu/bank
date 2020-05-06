@@ -174,26 +174,31 @@ public class StockMarketFrame extends JFrame {
 
         this.bank = bank;
         this.managerStockFrame = managerStockFrame;
-        String[] columns = new String[] {"NAME", "TICKER", "PRICE", "# SHARES"};
-        Object[][] data = new Object[bank.getStockMarket().getStocks().size()][4];
-        int i = 0;
-        for (Stock s : bank.getStockMarket().getStocks()) {
-            data[i][0] = s.getName();
-            data[i][1] = s.getTicker();
-            data[i][2] = s.getCurrentPrice();
-            data[i][3] = s.getVolume();
-            i++;
-        }
-        this.table_1 = new JTable(data,columns);
+
+
+//        String[] columns = new String[] {"NAME", "TICKER", "PRICE", "# SHARES"};
+//        Object[][] data = new Object[bank.getStockMarket().getStocks().size()][4];
+//        int i = 0;
+//        for (Stock s : bank.getStockMarket().getStocks()) {
+//            data[i][0] = s.getName();
+//            data[i][1] = s.getTicker();
+//            data[i][2] = s.getCurrentPrice();
+//            data[i][3] = s.getVolume();
+//            i++;
+//        }
+//        this.table_1 = new JTable(data,columns);
 //        panel.add(titleLabel);
 
-        panel.add(new JScrollPane(table_1));
-        panel.add(backButton);
+//        panel.add(new JScrollPane(table_1));
+//        panel.add(backButton);
+        initUI2();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(panel, BorderLayout.CENTER);
         setTitle("Stock Market Details");
         setSize(FORM_WIDTH, FORM_Height);
         setVisible(true);
+
+        refreshTables1();
         //back
         backButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -359,4 +364,87 @@ public class StockMarketFrame extends JFrame {
         backButton.setText("Back");
         panel1.add(backButton, new GridConstraints(0, 8, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, -1), null, 0, false));
     }
+
+
+    private void initUI2(){
+        panel.setBackground(new Color(-16777216));
+        panel =  new JPanel();
+        panel.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setBackground(new Color(-524801));
+
+        final JPanel panel4 = new JPanel();
+        scroll_1 = new JScrollPane();
+        scroll_1.setEnabled(true);
+        panel4.add(scroll_1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        table_1  = new JTable();
+        table_1.setEnabled(true);
+        scroll_1.setViewportView(table_1);
+        panel.add(panel4, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+
+//        final JPanel panel3 = new JPanel();
+//        scroll_2 = new JScrollPane();
+//        scroll_2.setEnabled(true);
+//        panel3.add(scroll_2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+//        table_2  = new JTable();
+//        table_2.setEnabled(true);
+//        scroll_2.setViewportView(table_2);
+//        panel.add(panel3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+
+
+        final JPanel panel1 = new JPanel();
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel2.setBackground(new Color(-524801));
+        panel.add(panel2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel2.add( panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+
+        panel1.setLayout(new GridLayoutManager(1, 9, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setBackground(new Color(-524801));
+
+//        JLabel choose_stock_label = new JLabel();
+//        choose_stock_label.setBackground(new Color(-524801));
+//        choose_stock_label.setForeground(new Color(-16777216));
+//        choose_stock_label.setText("Choose stock:");
+//        panel1.add(choose_stock_label, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+//        choose_stock_cmb =  new JComboBox();
+//        panel1.add(choose_stock_cmb, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+//        JLabel choose_mySecuritiesAccount_label = new JLabel();
+//        choose_mySecuritiesAccount_label.setBackground(new Color(-524801));
+//        choose_mySecuritiesAccount_label.setForeground(new Color(-16777216));
+//        choose_mySecuritiesAccount_label.setText("My SecuritiesAccount:");
+//        panel1.add(choose_mySecuritiesAccount_label, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+//        choose_SecuritiesAccount_cmb =  new JComboBox();
+//        panel1.add(choose_SecuritiesAccount_cmb, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+//
+//        JLabel num = new JLabel();
+//        num.setBackground(new Color(-524801));
+//        num.setForeground(new Color(-16777216));
+//        num.setText("Amount:");
+//        panel1.add(num, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+//
+//        amount_text = new JTextField();
+//        amount_text.setBackground(new Color(-1118482));
+//        amount_text.setForeground(new Color(-4473925));
+//        amount_text.setText("");
+//        panel1.add(amount_text, new GridConstraints(0, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, -1), null, 0, false));
+//
+//        buyButton = new JButton();
+//        buyButton.setBackground(new Color(-1118482));
+//        buyButton.setForeground(new Color(-16777216));
+//        buyButton.setText("BUY");
+//        panel1.add(buyButton, new GridConstraints(0, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, -1), null, 0, false));
+//
+//        sellButton = new JButton();
+//        sellButton.setBackground(new Color(-1118482));
+//        sellButton.setForeground(new Color(-16777216));
+//        sellButton.setText("SELL");
+//        panel1.add(sellButton, new GridConstraints(0, 7, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, -1), null, 0, false));
+
+        backButton = new JButton();
+        backButton.setBackground(new Color(-1118482));
+        backButton.setForeground(new Color(-16777216));
+        backButton.setText("Back");
+        panel1.add(backButton, new GridConstraints(0, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, -1), null, 0, false));
+    }
+
 }
