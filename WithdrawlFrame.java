@@ -22,7 +22,7 @@ public class WithdrawlFrame extends JFrame  implements ActionListener {
     private JComboBox choose_account_cmb;
     private JComboBox choose_currency_cmb;
     private JTextField amount_text;
-    private String amount_text_placeholder = "max 2,000,00";
+    private String amount_text_placeholder = "enter amount";
     private CustomerFrame customerFrame;
     private Customer customer;
 

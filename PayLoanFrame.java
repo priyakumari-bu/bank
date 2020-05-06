@@ -11,8 +11,8 @@ import java.util.Date;
 public class PayLoanFrame extends JFrame implements ActionListener {
 
 
-    public static int FORM_WIDTH = 450;
-    public static int FORM_Height = 250;
+    public static int FORM_WIDTH = 600;
+    public static int FORM_Height = 400;
 
     private JPanel wholePanel;
     private JLabel choose_account_label;
@@ -22,8 +22,10 @@ public class PayLoanFrame extends JFrame implements ActionListener {
     private JButton enterButton;
     private JComboBox choose_account_cmb;
     private JComboBox choose_currency_cmb;
+    private JLabel choose_payment;
+    private JComboBox accountToPayFrom;
     private JTextField amount_text;
-    private String amount_text_placeholder = "max 2,000,00";
+    private String amount_text_placeholder = "enter payment amount";
     private CustomerLoansFrame CustomerLoansFrame;
     private Customer customer;
     
@@ -75,7 +77,7 @@ public class PayLoanFrame extends JFrame implements ActionListener {
         enterButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (loans != null || loans.size() != 0) {
+                if (loans != null || loans.size() != 0 || choose_account_cmb.getSelectedItem().toString().length() != 26) {
                 String currency = choose_currency_cmb.getSelectedItem().toString();
                 String account = choose_account_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
@@ -96,7 +98,31 @@ public class PayLoanFrame extends JFrame implements ActionListener {
                         loan.makePayment(new Yen(Double.valueOf(amount)));
                         break;
                 }
-                JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesfull.\n" + loan.toString());
+
+                String account2 = accountToPayFrom.getSelectedItem().toString();
+
+                Customer c = getCustomer();
+                Account acc = c.getAccounts().get(c.findAccount(account2.split("—")[1]));
+
+                Withdrawl withdrawl = null;
+
+                switch (currency){
+                    case "USD":
+                        Dollar dollar = new Dollar(Double.valueOf(amount));
+                        withdrawl = new Withdrawl(acc,c,dollar,Bank.date);
+                        break;
+                    case "EUR":
+                        Euro euro = new Euro(Double.valueOf(amount));
+                        withdrawl = new Withdrawl(acc,c,euro,Bank.date);
+                        break;
+                    case "CNY":
+                        Yen yen = new Yen(Double.valueOf(amount));
+                        withdrawl = new Withdrawl(acc,c,yen,Bank.date);
+                        break;
+                }
+
+                acc.withdraw(withdrawl);
+                JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesful!\n\n" + loan.toString() + "\n\nPAYMENT CONFIRMATION: " + withdrawl.toString());
                 closeFrame();
                 PersistanceHandler p = new PersistanceHandler();
                 p.saveState();
@@ -136,9 +162,17 @@ public class PayLoanFrame extends JFrame implements ActionListener {
             }
             this.loans = loans;
         }
+        if (customer.getAccounts().size() == 0) {
+            accountToPayFrom.addItem("Please create an account first");
+        } else {
+            for (int i = 0; i < customer.getAccounts().size(); i++) {
+                String accountNum = customer.getAccounts().get(i).getID().toString();
+                String accountType = customer.getAccounts().get(i).getAccountType();
+                String balance = customer.getAccounts().get(i).getAmount().toString();
+                accountToPayFrom.addItem(accountType + "—" + accountNum + "—" + balance);
+            }
+        }
     }
-
-
 
 
     public void initUI(){
@@ -175,22 +209,30 @@ public class PayLoanFrame extends JFrame implements ActionListener {
         choose_account_label = new JLabel();
         choose_account_label.setBackground(new Color(-524801));
         choose_account_label.setForeground(new Color(-16777216));
-        choose_account_label.setText("Account:");
+        choose_account_label.setText("Choose Loan:");
         panel2.add(choose_account_label, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         choose_account_cmb =  new JComboBox();
         panel2.add(choose_account_cmb, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
+        choose_payment = new JLabel();
+        choose_payment.setBackground(new Color(-524801));
+        choose_payment.setForeground(new Color(-16777216));
+        choose_payment.setText("Choose Payment Option:");
+        panel2.add(choose_payment, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        accountToPayFrom = new JComboBox();
+        panel2.add(accountToPayFrom, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        
         amount_label = new JLabel();
         amount_label.setBackground(new Color(-524801));
         amount_label.setForeground(new Color(-16777216));
         amount_label.setText("Amount:");
-        panel2.add(amount_label, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel2.add(amount_label, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         amount_text = new JTextField();
         amount_text.setBackground(new Color(-1118482));
         amount_text.setForeground(new Color(-4473925));
         amount_text.setText(amount_text_placeholder);
-        panel2.add(amount_text, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, -1), null, 0, false));
+        panel2.add(amount_text, new GridConstraints(3, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, -1), null, 0, false));
 
 
         final JPanel panel3 = new JPanel();

@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
 
 public class CustomerLoansFrame extends JFrame implements ActionListener {
     private Bank bank; 
@@ -41,10 +42,13 @@ public class CustomerLoansFrame extends JFrame implements ActionListener {
             data[i][5] = a.getCollateral();
             i++; 
         }
+        pay.setMaximumSize(new DimensionUIResource(200, 200));
         this.loansTable = new JTable(data, columns); 
         panel.add(titleLabel);  
         panel.add(new JScrollPane(loansTable));
-        panel.add(pay);
+        JPanel panel2 = new JPanel();
+        panel2.add(pay);
+        panel.add(panel2);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(panel, BorderLayout.CENTER);
         setTitle("Customer Loans - " + Bank.date); 

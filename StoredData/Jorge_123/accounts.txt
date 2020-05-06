@@ -1,11 +1,13 @@
 ACCOUNT 0
 checking dollar
-dollar 123238.0
+dollar 122138.0
 START TRANSACTIONS
 deposit dollar 100.0 Sun May 10 12:39:16 EDT 2020
 deposit dollar 124421.0 Sun May 10 12:39:16 EDT 2020
 withdrawl dollar 1234.0 Sun May 10 12:39:16 EDT 2020
 deposit dollar 1.0 Mon May 11 12:39:16 EDT 2020
+withdrawl dollar 1000.0 Wed May 20 12:39:16 EDT 2020
+withdrawl dollar 100.0 Wed May 20 12:39:16 EDT 2020
 END TRANSACTIONS
 ACCOUNT 1
 loan dollar
@@ -36,9 +38,9 @@ START TRANSACTIONS
 deposit dollar 4242.0 Sun May 10 12:39:16 EDT 2020
 loan start
 dollar 10050.0 House Wed May 20 12:39:16 EDT 2020
-dollar 9000.0 dollar 0.0
+dollar 7800.0 dollar 0.0
 interest skip
-dollar-50.0 dollar-1000.0 
+dollar-50.0 dollar-1000.0 dollar-100.0 dollar-1000.0 dollar-100.0 
 loan end
 END TRANSACTIONS
 ACCOUNT 4
