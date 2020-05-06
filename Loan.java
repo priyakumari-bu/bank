@@ -171,4 +171,12 @@ public class Loan implements BankComponent, Exchangeable, InterestTaxable {
         return strRepr;
     }
 
+    public Currency computeAllPayments() {
+        double value = 0.0;
+        for (Currency currency : payments) {
+            value += currency.convertTo("dollar").getValue();
+        }
+        return (new Dollar(value)).convertTo(principal.getStringType());
+    }
+
 }
