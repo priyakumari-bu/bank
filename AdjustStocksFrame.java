@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 // GUI class used to produce frame where Manager can adjust the stock price of an existing stock
+// Manager side add stocks GUI interface
 public class AdjustStocksFrame extends JFrame implements ActionListener {
     private Bank bank; 
     private JPanel panel = new JPanel(new GridLayout(3, 1)); 
@@ -31,6 +32,7 @@ public class AdjustStocksFrame extends JFrame implements ActionListener {
         setVisible(true); 
     }
 
+    // GUI panel for Manager side add stocks GUI interface
     public AdjustStocksFrame(ManagerStockFrame managerStockFrame, Bank bank) {
         this.bank = bank;
         this.managerStockFrame = managerStockFrame;
@@ -48,7 +50,8 @@ public class AdjustStocksFrame extends JFrame implements ActionListener {
         setSize(600, 150);
         setVisible(true);
     }
-
+    
+    // Manager side add stocks GUI interface action performed Controls
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == backButton){
             this.dispose();
