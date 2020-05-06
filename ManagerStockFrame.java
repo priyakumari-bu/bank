@@ -49,6 +49,8 @@ public class ManagerStockFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    
+    // Manager side  stock information  GUI action performed Controls
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == viewMarket) {
             this.dispose();
