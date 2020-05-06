@@ -402,7 +402,6 @@ public class CustomerAccountsFrame extends JFrame implements ActionListener {
 
         JLabel label111=new JLabel("Account type：");
         cmb = new JComboBox();
-        cmb.addItem("--Select--");
         cmb.addItem("checking");
         cmb.addItem("savings");
         cmb.addItem("securities");
