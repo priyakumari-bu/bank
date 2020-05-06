@@ -125,6 +125,7 @@ public class TransferFrame extends JFrame implements ActionListener {
                     acc2.deposit(deposit2);
                     JOptionPane.showMessageDialog(rootPane, "Congratulations, your " + deposit2.getValue().toString() + " is complete.\n\nTRANSFER CONFIRMATION:\n\n" + deposit.toString() + "\n\n<=====>\n\n" + deposit2.toString());
                     closeFrame();
+                    customerFrame.setVisible(true);
                     PersistanceHandler p = new PersistanceHandler();
                     p.saveState();
                 }
