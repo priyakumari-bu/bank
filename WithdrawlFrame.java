@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 
-
+// GUI class that produces a frame from which a customer can perform a withdrawl from an account 
 public class WithdrawlFrame extends JFrame  implements ActionListener {
 
     public static int FORM_WIDTH = 450;
