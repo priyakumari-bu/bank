@@ -1,6 +1,6 @@
 
 import java.util.Date;
-
+// class that represents the manager of the bank 
 public class Manager extends BankUser {
 
 	public Manager(String username, String password) {
