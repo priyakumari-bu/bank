@@ -60,6 +60,7 @@ public class CustomerLoansFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         new PayLoanFrame(this, customer);
+        setVisible(false);
     }
     
 }

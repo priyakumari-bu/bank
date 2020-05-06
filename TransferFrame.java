@@ -82,7 +82,7 @@ public class TransferFrame extends JFrame implements ActionListener {
                 String amount = amount_text.getText();
 
                 Customer c = getCustomer();
-                Account acc = c.getAccounts().get(c.findAccount(account.split("—")[1]));
+                Account acc = c.getAccounts().get(c.findAccount(account.split(":")[1]));
                 Withdrawl deposit = null;
 
                 switch (currency){
@@ -102,8 +102,7 @@ public class TransferFrame extends JFrame implements ActionListener {
                 acc.withdraw(deposit);
 
                 String account2 = accountToPayFrom.getSelectedItem().toString();
-
-                Account acc2 = c.getAccounts().get(c.findAccount(account2.split("—")[1]));
+                Account acc2 = c.getAccounts().get(c.findAccount(account2.split(":")[1]));
                 Deposit deposit2 = null;
 
                 switch (currency){
@@ -146,13 +145,13 @@ public class TransferFrame extends JFrame implements ActionListener {
             String accountNum = customer.getAccounts().get(i).getID().toString();
             String accountType = customer.getAccounts().get(i).getAccountType();
             String balance = customer.getAccounts().get(i).getAmount().toString();
-            choose_account_cmb.addItem(accountType + "—" + accountNum + "—" + balance);
+            choose_account_cmb.addItem(accountType + ":" + accountNum + ":" + balance);
         }
         for (int i = 0; i < customer.getAccounts().size(); i++) {
             String accountNum = customer.getAccounts().get(i).getID().toString();
             String accountType = customer.getAccounts().get(i).getAccountType();
             String balance = customer.getAccounts().get(i).getAmount().toString();
-            accountToPayFrom.addItem(accountType + "—" + accountNum + "—" + balance);
+            accountToPayFrom.addItem(accountType + ":" + accountNum + ":" + balance);
         }
     }
 

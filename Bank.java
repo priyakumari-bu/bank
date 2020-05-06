@@ -15,7 +15,6 @@ public class Bank {
     public static Bank getInstance() {
         if (single_instance == null) {
             single_instance = new Bank(); 
-            stockMarket.addDefaultStocks();
         }
         return single_instance;
     }
