@@ -23,7 +23,7 @@ public class DepositFrame extends JFrame implements ActionListener {
     private JComboBox choose_account_cmb;
     private JComboBox choose_currency_cmb;
     private JTextField amount_text;
-    private String amount_text_placeholder = "enter amount";
+    private String amount_text_placeholder = "max 1,000,00";
     private CustomerFrame customerFrame;
     private Customer customer;
 
@@ -78,31 +78,36 @@ public class DepositFrame extends JFrame implements ActionListener {
                 String currency = choose_currency_cmb.getSelectedItem().toString();
                 String account = choose_account_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
+                if(amount.equals(amount_text_placeholder) || "".equals(amount)){
+                    JOptionPane.showMessageDialog(rootPane, "Please enter the amount.");
+                }else if(Integer.valueOf(amount)<1000){
+                    JOptionPane.showMessageDialog(rootPane, "Amount must be greater than 1000.");
+                }else {
+                    Customer c = getCustomer();
+                    Account acc = c.getAccounts().get(c.findAccount(account.split("—")[1]));
+                    Deposit deposit = null;
 
-                Customer c = getCustomer();
-                Account acc = c.getAccounts().get(c.findAccount(account.split("—")[1]));
-                Deposit deposit = null;
-
-                switch (currency){
-                    case "USD":
-                        Dollar dollar = new Dollar(Double.valueOf(amount));
-                        deposit= new Deposit(acc,c,dollar,Bank.date);
-                        break;
-                    case "EUR":
-                        Euro euro = new Euro(Double.valueOf(amount));
-                        deposit= new Deposit(acc,c,euro,Bank.date);
-                        break;
-                    case "CNY":
-                        Yen yen = new Yen(Double.valueOf(amount));
-                        deposit= new Deposit(acc,c,yen,Bank.date);
-                        break;
+                    switch (currency){
+                        case "USD":
+                            Dollar dollar = new Dollar(Double.valueOf(amount));
+                            deposit= new Deposit(acc,c,dollar,Bank.date);
+                            break;
+                        case "EUR":
+                            Euro euro = new Euro(Double.valueOf(amount));
+                            deposit= new Deposit(acc,c,euro,Bank.date);
+                            break;
+                        case "CNY":
+                            Yen yen = new Yen(Double.valueOf(amount));
+                            deposit= new Deposit(acc,c,yen,Bank.date);
+                            break;
+                    }
+                    acc.deposit(deposit);
+                    JOptionPane.showMessageDialog(rootPane, "Congratulations, the following transaction was completed:\n\n" + deposit.toString());
+                    closeFrame();
+                    PersistanceHandler p = new PersistanceHandler();
+                    p.saveState();
+                    customerFrame.setVisible(true);
                 }
-                acc.deposit(deposit);
-                JOptionPane.showMessageDialog(rootPane, "Congratulations, the following transaction was completed:\n\n" + deposit.toString());
-                closeFrame();
-                PersistanceHandler p = new PersistanceHandler();
-                p.saveState();
-                customerFrame.setVisible(true);
             }
         });
     }
