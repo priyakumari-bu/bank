@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+// GUI class to produce a frame displaying information about customers
 public class CustomerInfoFrame extends JFrame implements ActionListener {
 
     private Bank bank; 
