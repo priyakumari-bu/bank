@@ -30,6 +30,8 @@ public class PayLoanFrame extends JFrame implements ActionListener {
     private Customer customer;
     
     private ArrayList<Loan> loans = new ArrayList<Loan>();
+    private String msg_1 = "You do not have any loan accounts";
+    private String msg_2 = "Please create an account first";
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -78,56 +80,62 @@ public class PayLoanFrame extends JFrame implements ActionListener {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (loans != null || loans.size() != 0 || choose_account_cmb.getSelectedItem().toString().length() != 26) {
-                String currency = choose_currency_cmb.getSelectedItem().toString();
-                String account = choose_account_cmb.getSelectedItem().toString();
-                String amount = amount_text.getText();
-                Loan loan = null;
-                for (Loan loan_d : loans) {
-                    if (loan_d.getID().toString().equals(account.split(":")[0])) {
-                        loan = loan_d;
-                        break;
+                    String currency = choose_currency_cmb.getSelectedItem().toString();
+                    String account = choose_account_cmb.getSelectedItem().toString();
+                    String amount = amount_text.getText();
+
+                    if(amount.equals("") || amount.equals(amount_text_placeholder)){
+                        JOptionPane.showMessageDialog(rootPane, "Please enter the amount.");
+                    } else {
+                        Loan loan = null;
+                        for (Loan loan_d : loans) {
+                            if (loan_d.getID().toString().equals(account.split(":")[0])) {
+                                loan = loan_d;
+                                break;
+                            }
+                        }
+                        switch (currency){
+                            case "USD":
+                                loan.makePayment(new Dollar(Double.valueOf(amount)));
+                                break;
+                            case "EUR":
+                                loan.makePayment(new Euro(Double.valueOf(amount)));
+                                break;
+                            case "CNY":
+                                loan.makePayment(new Yen(Double.valueOf(amount)));
+                                break;
+                        }
+
+                        String account2 = accountToPayFrom.getSelectedItem().toString();
+
+                        Customer c = getCustomer();
+                        Account acc = c.getAccounts().get(c.findAccount(account2.split(":")[1]));
+                        Withdrawl withdrawl = null;
+
+                        switch (currency){
+                            case "USD":
+                                Dollar dollar = new Dollar(Double.valueOf(amount));
+                                withdrawl = new Withdrawl(acc,c,dollar,Bank.date);
+                                break;
+                            case "EUR":
+                                Euro euro = new Euro(Double.valueOf(amount));
+                                withdrawl = new Withdrawl(acc,c,euro,Bank.date);
+                                break;
+                            case "CNY":
+                                Yen yen = new Yen(Double.valueOf(amount));
+                                withdrawl = new Withdrawl(acc,c,yen,Bank.date);
+                                break;
+                        }
+
+                        acc.withdraw(withdrawl);
+                        JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesful!\n\n" + loan.toString() + "\n\nPAYMENT CONFIRMATION TO ACCOUNT " + acc.getID().toString() + ": " + withdrawl.toString());
+                        closeFrame();
+                        PersistanceHandler p = new PersistanceHandler();
+                        p.saveState();
+                        CustomerLoansFrame.setVisible(true);
                     }
                 }
-                switch (currency){
-                    case "USD":
-                        loan.makePayment(new Dollar(Double.valueOf(amount)));
-                        break;
-                    case "EUR":
-                        loan.makePayment(new Euro(Double.valueOf(amount)));
-                        break;
-                    case "CNY":
-                        loan.makePayment(new Yen(Double.valueOf(amount)));
-                        break;
-                }
-
-                String account2 = accountToPayFrom.getSelectedItem().toString();
-
-                Customer c = getCustomer();
-                Account acc = c.getAccounts().get(c.findAccount(account2.split(":")[1]));
-                Withdrawl withdrawl = null;
-
-                switch (currency){
-                    case "USD":
-                        Dollar dollar = new Dollar(Double.valueOf(amount));
-                        withdrawl = new Withdrawl(acc,c,dollar,Bank.date);
-                        break;
-                    case "EUR":
-                        Euro euro = new Euro(Double.valueOf(amount));
-                        withdrawl = new Withdrawl(acc,c,euro,Bank.date);
-                        break;
-                    case "CNY":
-                        Yen yen = new Yen(Double.valueOf(amount));
-                        withdrawl = new Withdrawl(acc,c,yen,Bank.date);
-                        break;
-                }
-
-                acc.withdraw(withdrawl);
-                JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesful!\n\n" + loan.toString() + "\n\nPAYMENT CONFIRMATION TO ACCOUNT " + acc.getID().toString() + ": " + withdrawl.toString());
-                closeFrame();
-                PersistanceHandler p = new PersistanceHandler();
-                p.saveState();
-                CustomerLoansFrame.setVisible(true);
-            }}
+            }
         });
     }
 
@@ -139,12 +147,16 @@ public class PayLoanFrame extends JFrame implements ActionListener {
         return customer;
     }
 
+    private boolean checking(){
+
+        return false;
+    }
 
     private void initializeAccountComboBox(Customer customer) {
         if (customer.getAccounts().size() == 0) {
-            choose_account_cmb.addItem("Please create an account first");
+            choose_account_cmb.addItem(msg_2);
         } else if (customer.getAllAccountsByType("loan").size() == 0) {
-            choose_account_cmb.addItem("You do not have any loan accounts"); 
+            choose_account_cmb.addItem(msg_1);
         } else {
             ArrayList<Account> allLoans = (customer.getAllAccountsByType("loan"));
             ArrayList<Loan> loans = new ArrayList<Loan>();
