@@ -28,7 +28,7 @@ public class StockMarketFrame extends JFrame {
     private Customer customer;
     private CustomerFrame customerFrame;
 
-    public static int FORM_WIDTH = 800;
+    public static int FORM_WIDTH = 850;
     public static int FORM_Height = 800;
 
     public StockMarketFrame(Bank bank) {
@@ -68,8 +68,6 @@ public class StockMarketFrame extends JFrame {
         setVisible(true);
         refreshTables1();
         refreshTables2();
-
-
 
         //buy
         buyButton.addMouseListener(new MouseAdapter() {
