@@ -1,4 +1,4 @@
-
+// Class that represents a Savings account 
 public class SavingsAccount extends Account implements InterestTaxable {
     // the fee charged to withdraw money from the account
     private double withdrawalFee;
