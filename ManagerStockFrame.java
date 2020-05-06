@@ -53,9 +53,11 @@ public class ManagerStockFrame extends JFrame implements ActionListener {
         if (ae.getSource() == viewMarket) {
             StockMarketFrame frame = new StockMarketFrame(bank); 
         } else if (ae.getSource() == adjustPrice) {
-            AdjustStocksFrame frame = new AdjustStocksFrame(bank); 
+            this.dispose();
+            AdjustStocksFrame frame = new AdjustStocksFrame(this,bank);
         } else if (ae.getSource() == addStock) {
-            AddStocksFrame frame = new AddStocksFrame(bank); 
+            this.dispose();
+            AddStocksFrame frame = new AddStocksFrame(this,bank);
         } else if (ae.getSource() == back_button) {
             this.dispose();
             managerFrame.setVisible(true);

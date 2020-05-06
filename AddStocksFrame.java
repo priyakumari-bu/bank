@@ -16,11 +16,11 @@ public class AddStocksFrame extends JFrame implements ActionListener {
     private JTextField tickerField = new JTextField(); 
     private JTextField priceField = new JTextField(); 
     private JTextField sharesField = new JTextField(); 
-    private JButton addStock = new JButton("Add Stock"); 
-
+    private JButton addStock = new JButton("Add Stock");
+    private JButton backButton = new JButton("Back");
+    private ManagerStockFrame managerStockFrame;
     public AddStocksFrame(Bank bank) {
-        this.bank = bank; 
-
+        this.bank = bank;
         panel.add(companyLabel); 
         panel.add(companyField); 
         panel.add(tickerLabel); 
@@ -28,30 +28,57 @@ public class AddStocksFrame extends JFrame implements ActionListener {
         panel.add(priceLabel); 
         panel.add(priceField); 
         panel.add(sharesLabel);
-        panel.add(sharesField); 
-        panel.add(addStock); 
-
+        panel.add(sharesField);
+        panel.add(addStock);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         addStock.addActionListener(this);
-
         add(panel, BorderLayout.CENTER); 
         setTitle("Stock Price Adjustment"  + " - " + Bank.date); 
         setSize(600, 200); 
         setVisible(true); 
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        String name = companyField.getText(); 
-        String ticker = tickerField.getText(); 
-        double price = Double.parseDouble(priceField.getText()); 
-        int volume = Integer.parseInt(sharesField.getText()); 
+    public AddStocksFrame(ManagerStockFrame managerStockFrame, Bank bank) {
+        this.bank = bank;
+        this.managerStockFrame = managerStockFrame;
+        panel.add(companyLabel);
+        panel.add(companyField);
+        panel.add(tickerLabel);
+        panel.add(tickerField);
+        panel.add(priceLabel);
+        panel.add(priceField);
+        panel.add(sharesLabel);
+        panel.add(sharesField);
+        panel.add(backButton);
+        panel.add(addStock);
 
-        Stock newStock = new Stock(name, ticker, new Dollar(price), volume); 
-        bank.getStockMarket().getStocks().add(newStock);
-        PersistanceHandler p = new PersistanceHandler();
-        p.saveState(); 
-        JOptionPane.showMessageDialog(rootPane, "Stock " + ticker + " has successfully been added to the Stock Market!");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addStock.addActionListener(this);
+        backButton.addActionListener(this);
+        add(panel, BorderLayout.CENTER);
+        setTitle("Stock Price Adjustment"  + " - " + Bank.date);
+        setSize(600, 200);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() == backButton){
+            this.dispose();
+            managerStockFrame.setVisible(true);
+        }
+        if(ae.getSource() == addStock){
+            String name = companyField.getText();
+            String ticker = tickerField.getText();
+            double price = Double.parseDouble(priceField.getText());
+            int volume = Integer.parseInt(sharesField.getText());
+
+            Stock newStock = new Stock(name, ticker, new Dollar(price), volume);
+            bank.getStockMarket().getStocks().add(newStock);
+            PersistanceHandler p = new PersistanceHandler();
+            p.saveState();
+            JOptionPane.showMessageDialog(rootPane, "Stock " + ticker + " has successfully been added to the Stock Market!");
+        }
+
     }
 
 
