@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 
-
+// GUI class to produce a frame that displays all loan information for a customer 
 public class LoanFrame extends JFrame  implements ActionListener {
 
     public static int FORM_WIDTH = 450;
