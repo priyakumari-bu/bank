@@ -22,12 +22,12 @@ public class StockMarketFrame extends JFrame {
     private JComboBox choose_SecuritiesAccount_cmb;
     private JButton buyButton;
     private JButton sellButton;
-    private JButton backButton;
+    private JButton backButton = new JButton("Back");
     private JTextField amount_text;
 
     private Customer customer;
     private CustomerFrame customerFrame;
-
+    private ManagerStockFrame managerStockFrame;
     public static int FORM_WIDTH = 850;
     public static int FORM_Height = 800;
 
@@ -170,6 +170,39 @@ public class StockMarketFrame extends JFrame {
         });
     }
 
+    public StockMarketFrame(ManagerStockFrame managerStockFrame, Bank bank) {
+
+        this.bank = bank;
+        this.managerStockFrame = managerStockFrame;
+        String[] columns = new String[] {"NAME", "TICKER", "PRICE", "# SHARES"};
+        Object[][] data = new Object[bank.getStockMarket().getStocks().size()][4];
+        int i = 0;
+        for (Stock s : bank.getStockMarket().getStocks()) {
+            data[i][0] = s.getName();
+            data[i][1] = s.getTicker();
+            data[i][2] = s.getCurrentPrice();
+            data[i][3] = s.getVolume();
+            i++;
+        }
+        this.table_1 = new JTable(data,columns);
+//        panel.add(titleLabel);
+
+        panel.add(new JScrollPane(table_1));
+        panel.add(backButton);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        add(panel, BorderLayout.CENTER);
+        setTitle("Stock Market Details");
+        setSize(FORM_WIDTH, FORM_Height);
+        setVisible(true);
+        //back
+        backButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                closeFrame();
+                getManagerStockFrame().setVisible(true);
+            }
+        });
+    }
 
 
     public void closeFrame() {
@@ -177,6 +210,9 @@ public class StockMarketFrame extends JFrame {
     }
     private CustomerFrame getCustomerFrame(){
         return this.customerFrame;
+    }
+    private ManagerStockFrame getManagerStockFrame(){
+        return this.managerStockFrame;
     }
 
     private Customer getCustomer() {
