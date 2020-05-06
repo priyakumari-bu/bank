@@ -35,20 +35,29 @@ public class AdjustStocksFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         boolean status = false; 
-        String stock = tickerField.getText(); 
-        double price = Double.parseDouble(priceField.getText()); 
-        for (Stock s : bank.getStockMarket().getStocks()) {
-            if (s.getTicker().equals(stock)) {
-                status = true; 
-                s.setCurrentPrice(new Dollar(price));
-                JOptionPane.showMessageDialog(rootPane, "The price of " + s.getTicker() + " stock has successfully been set to " + s.getCurrentPrice().toString() + ".");
-                PersistanceHandler p = new PersistanceHandler();
-                p.saveState();
+        String stock = tickerField.getText();
+        String priceText = priceField.getText();
+        if("".equals(stock)){
+            JOptionPane.showMessageDialog(rootPane, "Please enter the ticker."  );
+        } else if("".equals(priceText)){
+            JOptionPane.showMessageDialog(rootPane, "Please enter the price."  );
+        }else {
+            double price = Double.parseDouble(priceField.getText());
+            for (Stock s : bank.getStockMarket().getStocks()) {
+                if (s.getTicker().equals(stock)) {
+                    status = true;
+                    s.setCurrentPrice(new Dollar(price));
+                    JOptionPane.showMessageDialog(rootPane, "The price of " + s.getTicker() + " stock has successfully been set to " + s.getCurrentPrice().toString() + ".");
+                    PersistanceHandler p = new PersistanceHandler();
+                    p.saveState();
+                }
+            }
+            if (!status) {
+                JOptionPane.showMessageDialog(rootPane, "This stock does not exist");
             }
         }
-        if (!status) {
-            JOptionPane.showMessageDialog(rootPane, "This stock does not exist");
-        }
     }
+
+
     
 }
