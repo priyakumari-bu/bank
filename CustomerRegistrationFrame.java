@@ -68,7 +68,7 @@ public class CustomerRegistrationFrame extends JFrame implements ActionListener 
         setVisible(true);
     }
 
-
+    // user regisistration GUI action performed Controls
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == backButton){
             this.dispose();
