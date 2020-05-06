@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 
-
+// GUI class to create a frame from which a customer can complete a deposit 
 public class DepositFrame extends JFrame implements ActionListener {
 
 
