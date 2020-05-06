@@ -40,7 +40,7 @@ public class TransferFrame extends JFrame implements ActionListener {
     }
 
 
-    public TransferFrame(final CustomerFrame CustomerFrame , Customer customer){
+    public TransferFrame(final CustomerFrame customerFrame , Customer customer){
         this.customer = customer;
         this.customerFrame = customerFrame;
 
