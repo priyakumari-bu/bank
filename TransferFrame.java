@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+// GUI class that produces a frame from which customers can make transfers between accounts
 public class TransferFrame extends JFrame implements ActionListener {
 
 
