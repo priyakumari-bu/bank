@@ -22,7 +22,7 @@ public class ManagerFrame extends JFrame implements ActionListener {
         this.bank = bank; 
         this.login = login;
         panel.add(messageLabel);
-        panel.add(registerCustomer); 
+//        panel.add(registerCustomer);
         panel.add(generateReport);
         panel.add(checkCustomer);
         panel.add(adjustStocks);
