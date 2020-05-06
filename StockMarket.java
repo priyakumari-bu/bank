@@ -1,5 +1,5 @@
 import java.util.*; 
-
+// Class that represents the stock market in the bank 
 public class StockMarket implements BankComponent {
     private final ID id = new ID();
     private ArrayList<Stock> stocks; 
@@ -21,6 +21,7 @@ public class StockMarket implements BankComponent {
         this.stocks = stocks;
     }
 
+    // method that adds 10 stocks that the stock market will start off with 
     public ArrayList<Stock> addDefaultStocks() {
         Stock amzn = new Stock("Amazon", "AMZN", new Dollar(2474.00), 100); 
         Stock fb = new Stock("Facebook", "FB", new Dollar(204.71), 100); 
@@ -47,6 +48,7 @@ public class StockMarket implements BankComponent {
         return stocks; 
     }
 
+    // method to create a String representation of the stock market 
     public String toString() {
         StringBuilder str = new StringBuilder(); 
         str.append("NAME\t TICKER\t PRICE\t # SHARES\t\n"); 
