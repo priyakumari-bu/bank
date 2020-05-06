@@ -9,6 +9,7 @@ import java.util.Date;
 
 import javax.swing.*;
 
+// GUI class that produces a frame for both customers and the manager to log in from 
 public class Login extends JFrame implements ActionListener {
 
     private Bank bank; 
