@@ -81,49 +81,55 @@ public class TransferFrame extends JFrame implements ActionListener {
                 String account = choose_account_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
 
-                Customer c = getCustomer();
-                Account acc = c.getAccounts().get(c.findAccount(account.split(":")[1]));
-                Withdrawl deposit = null;
+                if(amount.equals("") || amount.equals(amount_text_placeholder)){
+                    JOptionPane.showMessageDialog(rootPane, "Please enter the amount.");
+                }else {
+                    Customer c = getCustomer();
+                    Account acc = c.getAccounts().get(c.findAccount(account.split(":")[1]));
+                    Withdrawl deposit = null;
 
-                switch (currency){
-                    case "USD":
-                        Dollar dollar = new Dollar(Double.valueOf(amount));
-                        deposit = new Withdrawl(acc,c,dollar,Bank.date);
-                        break;
-                    case "EUR":
-                        Euro euro = new Euro(Double.valueOf(amount));
-                        deposit= new Withdrawl(acc,c,euro,Bank.date);
-                        break;
-                    case "CNY":
-                        Yen yen = new Yen(Double.valueOf(amount));
-                        deposit= new Withdrawl(acc,c,yen,Bank.date);
-                        break;
+                    switch (currency){
+                        case "USD":
+                            Dollar dollar = new Dollar(Double.valueOf(amount));
+                            deposit = new Withdrawl(acc,c,dollar,Bank.date);
+                            break;
+                        case "EUR":
+                            Euro euro = new Euro(Double.valueOf(amount));
+                            deposit= new Withdrawl(acc,c,euro,Bank.date);
+                            break;
+                        case "CNY":
+                            Yen yen = new Yen(Double.valueOf(amount));
+                            deposit= new Withdrawl(acc,c,yen,Bank.date);
+                            break;
+                    }
+                    acc.withdraw(deposit);
+
+                    String account2 = accountToPayFrom.getSelectedItem().toString();
+                    Account acc2 = c.getAccounts().get(c.findAccount(account2.split(":")[1]));
+                    Deposit deposit2 = null;
+
+                    switch (currency){
+                        case "USD":
+                            Dollar dollar = new Dollar(Double.valueOf(amount));
+                            deposit2 = new Deposit(acc,c,dollar,Bank.date);
+                            break;
+                        case "EUR":
+                            Euro euro = new Euro(Double.valueOf(amount));
+                            deposit2 = new Deposit(acc,c,euro,Bank.date);
+                            break;
+                        case "CNY":
+                            Yen yen = new Yen(Double.valueOf(amount));
+                            deposit2 = new Deposit(acc,c,yen,Bank.date);
+                            break;
+                    }
+                    acc2.deposit(deposit2);
+                    JOptionPane.showMessageDialog(rootPane, "Congratulations, your " + deposit2.getValue().toString() + " is complete.\n\nTRANSFER CONFIRMATION:\n\n" + deposit.toString() + "\n\n<=====>\n\n" + deposit2.toString());
+                    closeFrame();
+                    PersistanceHandler p = new PersistanceHandler();
+                    p.saveState();
                 }
-                acc.withdraw(deposit);
 
-                String account2 = accountToPayFrom.getSelectedItem().toString();
-                Account acc2 = c.getAccounts().get(c.findAccount(account2.split(":")[1]));
-                Deposit deposit2 = null;
 
-                switch (currency){
-                    case "USD":
-                        Dollar dollar = new Dollar(Double.valueOf(amount));
-                        deposit2 = new Deposit(acc,c,dollar,Bank.date);
-                        break;
-                    case "EUR":
-                        Euro euro = new Euro(Double.valueOf(amount));
-                        deposit2 = new Deposit(acc,c,euro,Bank.date);
-                        break;
-                    case "CNY":
-                        Yen yen = new Yen(Double.valueOf(amount));
-                        deposit2 = new Deposit(acc,c,yen,Bank.date);
-                        break;
-                }
-                acc2.deposit(deposit2);
-                JOptionPane.showMessageDialog(rootPane, "Congratulations, your " + deposit2.getValue().toString() + " is complete.\n\nTRANSFER CONFIRMATION:\n\n" + deposit.toString() + "\n\n<=====>\n\n" + deposit2.toString());
-                closeFrame();
-                PersistanceHandler p = new PersistanceHandler();
-                p.saveState();
             }
         });
     }
