@@ -1,14 +1,14 @@
-
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 
-public class DepositFrame extends JFrame implements ActionListener {
+public class PayLoanFrame extends JFrame implements ActionListener {
 
 
     public static int FORM_WIDTH = 450;
@@ -24,29 +24,29 @@ public class DepositFrame extends JFrame implements ActionListener {
     private JComboBox choose_currency_cmb;
     private JTextField amount_text;
     private String amount_text_placeholder = "max 2,000,00";
-    private CustomerFrame customerFrame;
+    private CustomerLoansFrame CustomerLoansFrame;
     private Customer customer;
-
-
+    
+    private ArrayList<Loan> loans = new ArrayList<Loan>();
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             closeFrame();
-            customerFrame.setVisible(true);
+            CustomerLoansFrame.setVisible(true);
         }
     }
 
 
-    public DepositFrame(final CustomerFrame customerFrame , Customer customer){
+    public PayLoanFrame(final CustomerLoansFrame CustomerLoansFrame , Customer customer){
         this.customer = customer;
-        this.customerFrame = customerFrame;
+        this.CustomerLoansFrame = CustomerLoansFrame;
 
         initUI();
 
         backButton.addActionListener(this);
         add(wholePanel, BorderLayout.CENTER);
-        setTitle("Bank - Deposit" + " - " + Bank.date);
+        setTitle("Bank - Loan Payment" + " - " + Bank.date);
         setSize(FORM_WIDTH, FORM_Height);
         setVisible(true);
 
@@ -75,35 +75,33 @@ public class DepositFrame extends JFrame implements ActionListener {
         enterButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (loans != null || loans.size() != 0) {
                 String currency = choose_currency_cmb.getSelectedItem().toString();
                 String account = choose_account_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
-
-                Customer c = getCustomer();
-                Account acc = c.getAccounts().get(c.findAccount(account.split("—")[1]));
-                Deposit deposit = null;
-
+                Loan loan = null;
+                for (Loan loan_d : loans) {
+                    if (loan_d.getID().toString().equals(account.split("-")[0])); {
+                        loan = loan_d;
+                    }
+                }
                 switch (currency){
                     case "USD":
-                        Dollar dollar = new Dollar(Double.valueOf(amount));
-                        deposit= new Deposit(acc,c,dollar,Bank.date);
+                        loan.makePayment(new Dollar(Double.valueOf(amount)));
                         break;
                     case "EUR":
-                        Euro euro = new Euro(Double.valueOf(amount));
-                        deposit= new Deposit(acc,c,euro,Bank.date);
+                        loan.makePayment(new Euro(Double.valueOf(amount)));
                         break;
                     case "CNY":
-                        Yen yen = new Yen(Double.valueOf(amount));
-                        deposit= new Deposit(acc,c,yen,Bank.date);
+                        loan.makePayment(new Yen(Double.valueOf(amount)));
                         break;
                 }
-                acc.deposit(deposit);
-                JOptionPane.showMessageDialog(rootPane, "Congratulations, the following transaction was completed:\n\n" + deposit.toString());
+                JOptionPane.showMessageDialog(rootPane, "Congratulations, your payment has been succesfull.\n" + loan.toString());
                 closeFrame();
                 PersistanceHandler p = new PersistanceHandler();
                 p.saveState();
-                customerFrame.setVisible(true);
-            }
+                CustomerLoansFrame.setVisible(true);
+            }}
         });
     }
 
@@ -119,12 +117,24 @@ public class DepositFrame extends JFrame implements ActionListener {
     private void initializeAccountComboBox(Customer customer) {
         if (customer.getAccounts().size() == 0) {
             choose_account_cmb.addItem("Please create an account first");
-        }
-        for (int i = 0; i < customer.getAccounts().size(); i++) {
-            String accountNum = customer.getAccounts().get(i).getID().toString();
-            String accountType = customer.getAccounts().get(i).getAccountType();
-            String balance = customer.getAccounts().get(i).getAmount().toString();
-            choose_account_cmb.addItem(accountType + "—" + accountNum + "—" + balance);
+        } else if (customer.getAllAccountsByType("loan").size() == 0) {
+            choose_account_cmb.addItem("You do not have any loan accounts"); 
+        } else {
+            ArrayList<Account> allLoans = (customer.getAllAccountsByType("loan"));
+            ArrayList<Loan> loans = new ArrayList<Loan>();
+            for (Account loanAccount : allLoans) {
+                loans.addAll(((LoanAccount) loanAccount).getLoans());
+            }
+            if (loans.size() == 0) {
+                choose_account_cmb.addItem("You do not have any loans in your accounts. Request a Loan first."); 
+            } else {
+                for (int i = 0; i < loans.size(); i++) {
+                    String accountNum = loans.get(i).getID().toString();
+                    String accountType = loans.get(i).getRemainingBalance().toString();
+                    choose_account_cmb.addItem(accountNum + "—" + accountType);
+                }
+            }
+            this.loans = loans;
         }
     }
 
@@ -143,7 +153,7 @@ public class DepositFrame extends JFrame implements ActionListener {
         final JLabel label1 = new JLabel();
         label1.setBackground(new Color(-524801));
         label1.setForeground(new Color(-16777216));
-        label1.setText("Deposit");
+        label1.setText("Process Payment");
         panel1.add(label1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         final JPanel panel2 = new JPanel();
@@ -200,21 +210,5 @@ public class DepositFrame extends JFrame implements ActionListener {
         panel3.add(enterButton, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(40, -1), null, 0, false));
 
     }
-
-
-
-    public static void main(String[] args) {
-//        Currency currency1 = new Dollar(120.00);
-//        Customer customer4 = new Customer("admin", "admin", currency1);
-//        new DepositFrame(customer4);
-//        Yen y = new Yen(7.0);
-//        Double s = y.convertTo("dollar").getValue();
-//        System.out.println(s);
-    }
-
-
-
-
-
-
+ 
 }
