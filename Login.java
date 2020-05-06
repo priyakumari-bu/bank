@@ -19,6 +19,8 @@ public class Login extends JFrame implements ActionListener {
     private JPasswordField passwordTextField = new JPasswordField();
     private JButton submit = new JButton("Login");
 
+    private JButton registerCustomer = new JButton("No Account");
+
     public Login(Bank bank) {
         this.bank = bank;
 
@@ -35,12 +37,13 @@ public class Login extends JFrame implements ActionListener {
         panel.add(panel0, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JPanel panel1 = new JPanel();
         panel1.setBackground(new Color(-524801));
+        panel1.add(registerCustomer);
         panel1.add(submit);
         panel.add(panel1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        registerCustomer.addActionListener(this);
         submit.addActionListener(this);
         add(panel, BorderLayout.CENTER);
         setTitle("Bank Login" + " - " + Bank.date);
@@ -51,30 +54,35 @@ public class Login extends JFrame implements ActionListener {
 
 
     public void actionPerformed(ActionEvent ae) {
-        boolean status = false;
-        String userName = userTextField.getText();
-        String password = passwordTextField.getText();
-        Manager manager = bank.getManager();
-        ArrayList<Customer> customers = bank.getCustomers(); 
-        if (userName.trim().equals(manager.getUsername()) && password.trim().equals(manager.getPassword())) {
-            setVisible(false);
-            dispose();
-            JOptionPane.showMessageDialog(null, "You have logged in as a manager!");
-            status = true;
-            ManagerFrame frame = new ManagerFrame(bank, this); 
-        } else {
-           for (Customer customer : customers) {
-             if (userName.trim().equals(customer.getUsername()) && password.trim().equals(customer.getPassword())) {
+        if(ae.getSource() == registerCustomer){
+            CustomerRegistrationFrame frame = new CustomerRegistrationFrame(this,bank);
+        }
+        if(ae.getSource() == submit){
+            boolean status = false;
+            String userName = userTextField.getText();
+            String password = passwordTextField.getText();
+            Manager manager = bank.getManager();
+            ArrayList<Customer> customers = bank.getCustomers();
+            if (userName.trim().equals(manager.getUsername()) && password.trim().equals(manager.getPassword())) {
                 setVisible(false);
                 dispose();
-                JOptionPane.showMessageDialog(null, "You have logged in as a user!");
+                JOptionPane.showMessageDialog(null, "You have logged in as a manager!");
                 status = true;
-                CustomerFrame frame = new CustomerFrame(this, bank, customer); 
-             }
-           }
-        }
-        if (!status) {
-            JOptionPane.showMessageDialog(null, "Authentication failed! The user and password do not exist.");
+                ManagerFrame frame = new ManagerFrame(bank, this);
+            } else {
+                for (Customer customer : customers) {
+                    if (userName.trim().equals(customer.getUsername()) && password.trim().equals(customer.getPassword())) {
+                        setVisible(false);
+                        dispose();
+                        JOptionPane.showMessageDialog(null, "You have logged in as a user!");
+                        status = true;
+                        CustomerFrame frame = new CustomerFrame(this, bank, customer);
+                    }
+                }
+            }
+            if (!status) {
+                JOptionPane.showMessageDialog(null, "Authentication failed! The user and password do not exist.");
+            }
         }
     }
 
