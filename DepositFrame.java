@@ -78,9 +78,13 @@ public class DepositFrame extends JFrame implements ActionListener {
                 String currency = choose_currency_cmb.getSelectedItem().toString();
                 String account = choose_account_cmb.getSelectedItem().toString();
                 String amount = amount_text.getText();
+
+                int index =  customer.findAccount(account.split("—")[1]);
+                String accountType = customer.getAccounts().get(index).getAccountType();
+                System.out.println("accountType---"+accountType);
                 if(amount.equals(amount_text_placeholder) || "".equals(amount)){
                     JOptionPane.showMessageDialog(rootPane, "Please enter the amount.");
-                }else if(Integer.valueOf(amount)<1000){
+                }else if("securities".equals(accountType)  && Integer.valueOf(amount)<1000){
                     JOptionPane.showMessageDialog(rootPane, "Amount must be greater than 1000.");
                 }else {
                     Customer c = getCustomer();
