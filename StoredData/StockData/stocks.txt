@@ -1,1 +1,5 @@
 Facebook FB dollar 12409.0 124120412
+Amazon AMZ dollar 10.0 1998
+Tesla TSL dollar 150.0 200
+RiotGames RT dollar 78.9 100
+Tencent TC yen 13000.0 100
