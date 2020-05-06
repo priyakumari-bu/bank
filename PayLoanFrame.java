@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+// GUI class that creates a frame from which the customer can pay back their loan
 public class PayLoanFrame extends JFrame implements ActionListener {
 
 
